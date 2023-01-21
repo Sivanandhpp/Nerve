@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "274807323300",
+    "project_id": "studyapp-6c7e9",
+    "storage_bucket": "studyapp-6c7e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274807323300:android:bea109b8c26ecd02fcc431",
+        "android_client_info": {
+          "package_name": "com.example.nerve"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274807323300-q805hvr7mtoiddbd8gn5locphrh82ies.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlD6D_IRkfAGBTY5Y5fw-rQKDcveIpgVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274807323300-q805hvr7mtoiddbd8gn5locphrh82ies.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
