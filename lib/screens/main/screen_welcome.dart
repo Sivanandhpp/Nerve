@@ -63,7 +63,7 @@ class IntroScreen extends StatelessWidget {
               MainButton(
                 text: "Get Started",
                 onTap: () {
-                  setFirstSeen();
+                  SharedPreferencesService().setFirstSeen();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => RoutingService()),

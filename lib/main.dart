@@ -4,7 +4,8 @@ import 'package:nerve/core/services/auth_service.dart';
 import 'package:nerve/core/services/routing_service.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'core/globalvalues/post_user.dart';
+import 'core/globalvalues/user_data.dart';
+import 'core/services/sharedpref_service.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +14,7 @@ import 'core/globalvalues/theme_color.dart';
 late SharedPreferences spInstance;
 late DatabaseReference dbReference;
 final firebaseUser = Post();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -39,6 +41,9 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<AuthService>(
           create: (_) => AuthService(),
+        ),
+        Provider<SharedPreferencesService>(
+          create: (_) => SharedPreferencesService(),
         ),
       ],
       child: MaterialApp(
