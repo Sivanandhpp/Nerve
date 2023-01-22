@@ -4,9 +4,9 @@ import '../../main.dart';
 class DatabaseService {
   Future<Post> getDatabaseUser(String uid) async {
     await dbReference.child('users/$uid').once().then(
-          (value) => firebaseUser.snapshotToClass(uid, value.snapshot),
+          (value) => userData.snapshotToClass(uid, value.snapshot),
         );
-    return firebaseUser;
+    return userData;
   }
 
   setDatabaseUser(String uid, String name, String email, String phoneNo,

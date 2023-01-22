@@ -43,13 +43,13 @@ class Post {
 
     if (setData) {
       
-      //SET DATA TO REALTIME DATABASE WHILE SIGN UP
-      dbService.setDatabaseUser(uid, setname, setemail, setphoneNo, setpassword,
-          setbatch, setrevision, "user");
-
       //SET DATA TO SHARED PREFERANCES WHILE SIGN UP
       spService.setSharedprefUser(uid, setname, setemail, setphoneNo,
           setpassword, setbatch, setrevision, "user");
+
+      //SET DATA TO REALTIME DATABASE WHILE SIGN UP
+      dbService.setDatabaseUser(uid, setname, setemail, setphoneNo, setpassword,
+          setbatch, setrevision, "user");
     }
   }
 }

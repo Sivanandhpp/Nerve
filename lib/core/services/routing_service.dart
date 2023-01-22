@@ -15,8 +15,8 @@ import '../globalvalues/globals.dart' as globals;
 class RoutingService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // SharedPreferencesService spService = SharedPreferencesService();
-    final spService = Provider.of<SharedPreferencesService>(context);
+    SharedPreferencesService spService = SharedPreferencesService();
+
     final authService = Provider.of<AuthService>(context);
     return StreamBuilder<User?>(
       stream: authService.user,
@@ -30,19 +30,23 @@ class RoutingService extends StatelessWidget {
             globals.userID = user.uid;
             return FutureBuilder<List<String>?>(
               future: spService.getSharedprefUser(),
-              builder: (BuildContext context, AsyncSnapshot<List<String>?> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<String>?> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.data![7] == "admin") {
-                    //Admin Dashboard
-                    return AdminDashBoard();
-                  } else {
-                    //User Dashboard
-                    return UserDashBoard();
+                  if (snapshot.data![0] == globals.userID) {
+                    if (snapshot.data![7] == "admin") {
+                      //Admin Dashboard
+                      return AdminDashBoard();
+                    } else {
+                      //User Dashboard
+                      return UserDashBoard();
+                    }
                   }
                 }
-                return const LoadingScreen(
-                  loadingTitle: "Fetching user...",
-                );
+                return RoutingService();
+                // const LoadingScreen(
+                //   loadingTitle: "Fetching user...",
+                // );
               },
             );
           }
@@ -73,9 +77,9 @@ class RoutingService extends StatelessWidget {
 
   Future<String> isAdmin(String uid) async {
     await dbReference.child('users/$uid').once().then(
-          (value) => firebaseUser.snapshotToClass(uid, value.snapshot),
+          (value) => userData.snapshotToClass(uid, value.snapshot),
         );
-    globals.revision = firebaseUser.revision;
-    return firebaseUser.role;
+    globals.revision = userData.revision;
+    return userData.role;
   }
 }

@@ -18,8 +18,8 @@ class SharedPreferencesService {
 
   Future<List<String>?> getSharedprefUser() async {
     List<String>? userList = spInstance.getStringList("user");
-    firebaseUser.setUserData(userList![0], userList[1], userList[2],
-        userList[3], userList[4], userList[5], userList[6], userList[7], false);
+    userData.setUserData(userList![0], userList[1], userList[2], userList[3],
+        userList[4], userList[5], userList[6], userList[7], false);
     return userList;
   }
 

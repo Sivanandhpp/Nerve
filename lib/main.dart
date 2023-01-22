@@ -13,7 +13,7 @@ import 'core/globalvalues/theme_color.dart';
 
 late SharedPreferences spInstance;
 late DatabaseReference dbReference;
-final firebaseUser = Post();
+final userData = Post();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,9 +41,6 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<AuthService>(
           create: (_) => AuthService(),
-        ),
-        Provider<SharedPreferencesService>(
-          create: (_) => SharedPreferencesService(),
         ),
       ],
       child: MaterialApp(
