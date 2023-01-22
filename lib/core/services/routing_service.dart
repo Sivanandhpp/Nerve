@@ -1,8 +1,6 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:nerve/core/services/auth_service.dart';
 import 'package:nerve/core/globalvalues/user_model.dart';
-import 'package:nerve/core/services/sharedpref_service.dart';
 import 'package:nerve/screens/main/screen_welcome.dart';
 import 'package:nerve/screens/dashboards/user_dashboard.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +8,6 @@ import '../../main.dart';
 import '../../screens/dashboards/admin_dashboard.dart';
 import '../../screens/widgets/splash_loading.dart';
 import '../../screens/authentication/screen_login.dart';
-import '../globalvalues/post_user.dart';
 import '../globalvalues/globals.dart' as globals;
 
 // ignore: must_be_immutable, use_key_in_widget_constructors
@@ -81,7 +78,7 @@ class RoutingService extends StatelessWidget {
           (value) => firebaseUser.snapshotToClass(value.snapshot),
         );
     globals.revision = firebaseUser.revision;
-  
+
     // final revisionDB = await dbReference.child('users/$uid/revision').get();
     // setRevisrion(firebaseUser.revision);
     // final roleDB = await dbReference.child('users/$uid/role').get();

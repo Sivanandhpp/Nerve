@@ -264,7 +264,7 @@ class ScreenAbout extends StatelessWidget {
                                       height: 5,
                                     ),
                                     Text(
-                                      "Developer",
+                                      "Software Developer",
                                       style: GoogleFonts.ubuntu(
                                           color: ThemeColor.grey,
                                           fontSize: 15,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'user_navbar.dart' as user;
 import '../main/screen_about.dart';
-import '../main/screen_calculator.dart';
+import '../main/screen_notification.dart';
 import '../main/screen_home.dart';
 import '../main/screen_upload.dart';
 
@@ -10,7 +10,7 @@ class UserDashBoard extends StatelessWidget {
   final _pages = [
     const HomeScreen(),
     const ScreenUpload(),
-    const ScreenCalculator(),
+    const ScreenNotification(),
     const ScreenAbout(),
   ];
   @override

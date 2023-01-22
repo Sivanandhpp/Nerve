@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nerve/core/services/auth_service.dart';
 import 'package:nerve/core/services/routing_service.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +14,7 @@ import 'core/globalvalues/theme_color.dart';
 
 late SharedPreferences spInstance;
 late DatabaseReference dbReference;
+
 final firebaseUser = Post();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +24,7 @@ void main() async {
   spInstance = await SharedPreferences.getInstance();
   dbReference = FirebaseDatabase.instance.ref();
   // await FirebaseAuth.instance.signInAnonymously();
+  FirebaseMessaging.instance;
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: ThemeColor.scaffoldBgColor,
@@ -46,6 +50,7 @@ class MyApp extends StatelessWidget {
           title: 'Nerve',
           theme: ThemeData(
             scaffoldBackgroundColor: ThemeColor.scaffoldBgColor,
+            fontFamily: GoogleFonts.ubuntu().fontFamily,
             primarySwatch: Colors.blue,
           ),
           home: RoutingService()),
