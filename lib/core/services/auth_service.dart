@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter/material.dart';
+import 'package:nerve/core/services/error_handler.dart';
 import '../../main.dart';
 import '../globalvalues/globals.dart' as globals;
 import 'package:nerve/core/globalvalues/user_model.dart';
 
 class AuthService {
   final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
-
+  ErrorHandler errHandler = ErrorHandler();
   User? _userFromFirebase(auth.User? user) {
     if (user == null) {
       return null;
@@ -20,50 +22,50 @@ class AuthService {
   Future<User?> signInWithEmailAndPassword(
     String email,
     String password,
+    BuildContext context,
   ) async {
-    final credential = await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    return _userFromFirebase(credential.user);
+    try {
+      final credential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return _userFromFirebase(credential.user);
+    } on auth.FirebaseAuthException catch (e) {
+      errHandler.fromErrorCode(e, context);
+    } catch (e) {
+      errHandler.fromErrorCode(e, context);
+    }
+    return null;
   }
 
   Future<User?> createUserWithEmailAndPassword(
-    String name,
-    String phoneNo,
-    String email,
-    String password,
-  ) async {
+      String name,
+      String phoneNo,
+      String email,
+      String password,
+      String batch,
+      String revision,
+      BuildContext context) async {
     globals.userName = name;
-    final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    credential.user!.linkWithPhoneNumber(phoneNo);
-    credential.user!.updateDisplayName(name);
-    String _userUID = credential.user!.uid;
     try {
-      final userReferance = dbReference.child('users/$_userUID');
-      userReferance.set(
-        {
-          'name': name,
-          'email': email,
-          'phone': phoneNo,
-          'password': password,
-          'revision': globals.revision,
-          'role': 'user'
-        },
+      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
       );
+      credential.user!.linkWithPhoneNumber(phoneNo);
+      credential.user!.updateDisplayName(name);
+      firebaseUser.setUserData(credential.user!.uid, name, email, phoneNo,
+          password, batch, 'user', revision, true);
+      return _userFromFirebase(credential.user);
+    } on auth.FirebaseAuthException catch (e) {
+      errHandler.fromErrorCode(e, context);
     } catch (e) {
-      print(e);
+      errHandler.fromErrorCode(e, context);
     }
-
-    return _userFromFirebase(credential.user);
+    return null;
   }
 
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
   }
-
- 
 }

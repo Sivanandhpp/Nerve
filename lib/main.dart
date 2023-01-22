@@ -4,6 +4,7 @@ import 'package:nerve/core/services/auth_service.dart';
 import 'package:nerve/core/services/routing_service.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'core/globalvalues/post_user.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +12,7 @@ import 'core/globalvalues/theme_color.dart';
 
 late SharedPreferences spInstance;
 late DatabaseReference dbReference;
-
+final firebaseUser = Post();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -51,22 +52,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-// FutureBuilder<bool?>(
-      //   future: checkFirstSeen(),
-      //   builder: (BuildContext context, AsyncSnapshot<bool?> snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.done) {
-      //       if (snapshot.data == false) {
-      //         return const IntroScreen();
-      //       }
-      //       return WrapperScreen();
-      //     }
-      //     return const Center(
-      //       child: CircularProgressIndicator(),
-      //     );
-      //   },
-      // ),

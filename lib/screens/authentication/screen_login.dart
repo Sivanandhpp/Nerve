@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (_formKey.currentState!.validate()) {
                             authService.signInWithEmailAndPassword(
                                 _emailController.text,
-                                _passwordController.text);
+                                _passwordController.text,context);
                           }
                         },
                         cursorColor: ThemeColor.primary,
@@ -166,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (_formKey.currentState!.validate()) {
                             authService.signInWithEmailAndPassword(
                                 _emailController.text,
-                                _passwordController.text);
+                                _passwordController.text,context);
                           }
                         },
                       ),

@@ -2,10 +2,12 @@
 <!-- Modify this file to customize your launch splash screen -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@android:color/white" />
+
     <!-- You can insert your own image assets here -->
     <item>
         <bitmap
+            android:layout_width="match_parent"
             android:gravity="center"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/nerve" />
     </item>
 </layer-list>

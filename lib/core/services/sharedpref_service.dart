@@ -1,21 +1,27 @@
 import '../../main.dart';
-import '../globalvalues/globals.dart' as globals;
 
 Future<bool> checkFirstSeen() async {
   bool seen = (spInstance.getBool('seen') ?? false);
   if (seen) {
-    globals.revision = spInstance.getString('rev')!;
     return true;
   } else {
     return false;
   }
 }
 
-Future setRevisrion(String rev) async {
-  globals.revision = rev;
-  await spInstance.setString('rev', rev);
-}
-
 Future setFirstSeen() async {
   await spInstance.setBool('seen', true);
+}
+
+setSharedprefUser(String uid, String name, String email, String phoneNo,
+    String password, String batch, String revision, String role) async {
+  await spInstance.setStringList(
+      "user", [uid, name, email, phoneNo, password, batch, revision, role]);
+}
+
+Future<List<String>?> getSharedprefUser() async {
+  List<String>? userList = spInstance.getStringList("user");
+  firebaseUser.setUserData(userList![0], userList[1], userList[2], userList[3],
+      userList[4], userList[5], userList[6], userList[7], false);
+  return userList;
 }

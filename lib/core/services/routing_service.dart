@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:nerve/core/services/auth_service.dart';
 import 'package:nerve/core/globalvalues/user_model.dart';
@@ -9,6 +10,7 @@ import '../../main.dart';
 import '../../screens/dashboards/admin_dashboard.dart';
 import '../../screens/widgets/splash_loading.dart';
 import '../../screens/authentication/screen_login.dart';
+import '../globalvalues/post_user.dart';
 import '../globalvalues/globals.dart' as globals;
 
 // ignore: must_be_immutable, use_key_in_widget_constructors
@@ -21,15 +23,16 @@ class RoutingService extends StatelessWidget {
       builder: (_, AsyncSnapshot<User?> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final User? user = snapshot.data;
+          if (user?.username != null) {
+            globals.userName = user!.username.toString();
+          }
           if (user != null) {
             globals.userID = user.uid;
-            globals.userName = user.username.toString();
-            return FutureBuilder<bool?>(
+            return FutureBuilder<String?>(
               future: isAdmin(globals.userID),
-              builder: (BuildContext context, AsyncSnapshot<bool?> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.data == true) {
-                    globals.role = "admin";
+                  if (snapshot.data == "admin") {
                     //Admin Dashboard
                     return AdminDashBoard();
                   } else {
@@ -73,16 +76,18 @@ class RoutingService extends StatelessWidget {
     return seen;
   }
 
-  Future<bool> isAdmin(String uid) async {
-    final revisionDB = await dbReference.child('users/$uid/revision').get();
-    setRevisrion(revisionDB.value.toString());
-    final roleDB = await dbReference.child('users/$uid/role').get();
-    globals.role = roleDB.value.toString();
-    if (roleDB.value.toString() == "admin") {
-      return true;
-    } else {
-      return false;
-    }
+  Future<String> isAdmin(String uid) async {
+    await dbReference.child('users/$uid').once().then(
+          (value) => firebaseUser.snapshotToClass(value.snapshot),
+        );
+    globals.revision = firebaseUser.revision;
+  
+    // final revisionDB = await dbReference.child('users/$uid/revision').get();
+    // setRevisrion(firebaseUser.revision);
+    // final roleDB = await dbReference.child('users/$uid/role').get();
+    // globals.role = roleDB.value.toString();
+    // return roleDB.value.toString();
+    return firebaseUser.role;
   }
 }
 

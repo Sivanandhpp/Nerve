@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nerve/core/globalvalues/globals.dart' as globals;
+import 'package:nerve/core/globalvalues/globals.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 import '../../core/services/auth_service.dart';
 import '../../core/globalvalues/font_size.dart';
-import '../../core/services/sharedpref_service.dart';
 import '../widgets/main_button.dart';
 import '../../core/globalvalues/theme_color.dart';
 
@@ -22,7 +22,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _phoneNoController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  late bool _is2015 = true;
+  int _batch = DateTime.now().year;
+  String _revision = "2021";
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 70),
+                const SizedBox(height: 40),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -198,71 +199,101 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       ),
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (_is2015) {
-                              _is2015 = false;
-                            } else {
-                              _is2015 = true;
-                            }
-                          });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Transform.scale(
-                              scale: 1.5,
-                              child: Checkbox(
-                                value: _is2015,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (_is2015) {
-                                      _is2015 = false;
-                                    } else {
-                                      _is2015 = true;
-                                    }
-                                  });
-                                },
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                activeColor: ThemeColor.primary,
-                                checkColor: ThemeColor.white,
+                      const SizedBox(height: 16),
+                      Container(
+                        height: 60,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: ThemeColor.textFieldBgColor,
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Select Batch:",
+                                style: GoogleFonts.poppins(
+                                  color: ThemeColor.textFieldHintColor,
+                                  fontSize: FontSize.medium,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "Check if 2015 revision. (can be changed later)",
-                              style: GoogleFonts.poppins(
-                                fontSize: FontSize.medium,
-                                fontWeight: FontWeight.w400,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.remove),
+                                    onPressed: () => setState(() {
+                                      if (_batch !=
+                                          DateTime.now().year - 6) {
+                                        _batch -= 1;
+                                      }
+                                    }),
+                                  ),
+                                  NumberPicker(
+                                    itemWidth: 80,
+                                    value: _batch,
+                                    minValue: DateTime.now().year - 6,
+                                    maxValue: DateTime.now().year,
+                                    step: 1,
+                                    itemCount: 1,
+                                    selectedTextStyle: GoogleFonts.poppins(
+                                      color: ThemeColor.primary,
+                                      fontSize: FontSize.large,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    axis: Axis.horizontal,
+                                    haptics: true,
+                                    textStyle: GoogleFonts.poppins(
+                                      color: ThemeColor.textFieldHintColor,
+                                      fontSize: FontSize.medium,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    onChanged: (value) =>
+                                        setState(() => _batch = value),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(color: Colors.black26),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () => setState(() {
+                                      if (_batch != DateTime.now().year) {
+                                        _batch += 1;
+                                      }
+                                    }),
+                                  ),
+                                ],
                               ),
-                            )
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
                       MainButton(
                         text: 'Sign Up',
                         onTap: () async {
-                          if (_is2015) {
-                            setRevisrion("2015");
-                          } else {
-                            setRevisrion("2021");
+                          if (_batch < 2021) {
+                            _revision = "2015";
                           }
                           if (_formKey.currentState!.validate()) {
                             await authService.createUserWithEmailAndPassword(
-                              _nameController.text,
-                              _phoneNoController.text,
-                              _emailController.text,
-                              _passwordController.text,);
+                                _nameController.text,
+                                _phoneNoController.text,
+                                _emailController.text,
+                                _passwordController.text,
+                                _batch.toString(),
+                                _revision,
+                                context);
                             Navigator.pop(context);
                           }
                         },
                       ),
+
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Row(
