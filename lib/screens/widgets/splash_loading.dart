@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nerve/core/globalvalues/theme_color.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../core/globalvalues/sizedboxes.dart' as sb;
 
 class LoadingScreen extends StatelessWidget {
@@ -27,15 +28,28 @@ class LoadingScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    loadingTitle,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: ThemeColor.purpleBG,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28.0,
+                  Shimmer.fromColors(
+                    baseColor: ThemeColor.purpleBG,
+                    highlightColor: ThemeColor.white,
+                    child: Text(
+                      loadingTitle,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        // color: ThemeColor.purpleBG,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28.0,
+                      ),
                     ),
                   ),
+                  // Text(
+                  //   loadingTitle,
+                  //   textAlign: TextAlign.center,
+                  //   style: const TextStyle(
+                  //     color: ThemeColor.purpleBG,
+                  //     fontWeight: FontWeight.bold,
+                  //     fontSize: 28.0,
+                  //   ),
+                  // ),
                   sb.width10,
                   const SizedBox(
                     height: 20,

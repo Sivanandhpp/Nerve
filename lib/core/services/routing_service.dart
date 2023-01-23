@@ -6,6 +6,7 @@ import 'package:nerve/core/services/database_service.dart';
 import 'package:nerve/core/services/sharedpref_service.dart';
 import 'package:nerve/screens/main/screen_welcome.dart';
 import 'package:nerve/screens/dashboards/user_dashboard.dart';
+import 'package:nerve/screens/widgets/shimmer_home.dart';
 import 'package:provider/provider.dart';
 import '../../main.dart';
 import '../../screens/dashboards/admin_dashboard.dart';
@@ -41,10 +42,10 @@ class RoutingService extends StatelessWidget {
                     return UserDashBoard();
                   }
                 }
-
-                return const LoadingScreen(
-                  loadingTitle: "Fetching user...",
-                );
+                return const HomeShimmer();
+                // return const LoadingScreen(
+                //   loadingTitle: "Fetching user...",
+                // );
               },
             );
           }

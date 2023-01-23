@@ -23,4 +23,9 @@ class DatabaseService {
       'role': role
     });
   }
+  setDatabaseValue(String key, String value, String uid) {
+    final userReferance = dbReference.child('users/$uid');
+    
+    userReferance.update({key: value});
+  }
 }
