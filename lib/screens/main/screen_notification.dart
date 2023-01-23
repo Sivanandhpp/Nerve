@@ -2,7 +2,6 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:nerve/core/services/notification_service.dart';
 import 'package:nerve/main.dart';
 import '../../core/globalvalues/sizedboxes.dart' as sb;
@@ -15,14 +14,12 @@ class ScreenNotification extends StatefulWidget {
   State<ScreenNotification> createState() => _ScreenNotificationState();
 }
 
-DateTime _now = DateTime.now();
-final String _dateCreated = DateFormat.yMEd().format(_now);
-String _time = DateFormat.Hms().format(_now);
 final TextEditingController _messageTitle = TextEditingController();
 final TextEditingController _messageContent = TextEditingController();
 
 class _ScreenNotificationState extends State<ScreenNotification> {
-  final database = dbReference.child('Notifications');
+  final database =
+      dbReference.child('Notifications').orderByChild('time').limitToFirst(6);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +47,7 @@ class _ScreenNotificationState extends State<ScreenNotification> {
                             borderRadius: BorderRadius.circular(12)),
                         padding: const EdgeInsets.all(12),
                         child: const FaIcon(
-                          FontAwesomeIcons.message,
+                          FontAwesomeIcons.upload,
                         ),
                       ),
                       onTap: () {
@@ -111,7 +108,8 @@ class _ScreenNotificationState extends State<ScreenNotification> {
                       ),
                     );
                   },
-                )
+                ),
+                sb.height50
               ],
             ),
           ),
@@ -168,9 +166,13 @@ class _ScreenNotificationState extends State<ScreenNotification> {
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   onPressed: () {
+                    if (_messageContent.text.isEmpty) {
+                      return;
+                    }
+                    if (_messageTitle.text.isEmpty) {
+                      return;
+                    }
                     addNotification(
-                      _time,
-                      _dateCreated,
                       _messageTitle.text,
                       _messageContent.text,
                     );
