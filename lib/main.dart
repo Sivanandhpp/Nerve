@@ -24,7 +24,6 @@ void main() async {
   spInstance = await SharedPreferences.getInstance();
   dbReference = FirebaseDatabase.instance.ref();
   // await FirebaseAuth.instance.signInAnonymously();
-  // FirebaseMessaging.instance;
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: ThemeColor.scaffoldBgColor,
