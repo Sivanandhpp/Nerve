@@ -18,8 +18,7 @@ final TextEditingController _messageTitle = TextEditingController();
 final TextEditingController _messageContent = TextEditingController();
 
 class _ScreenNotificationState extends State<ScreenNotification> {
-  final database =
-      dbReference.child('Notifications').orderByChild('time').limitToFirst(6);
+  final database = dbReference.child('Notifications');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
