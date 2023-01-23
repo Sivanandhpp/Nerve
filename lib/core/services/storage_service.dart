@@ -2,7 +2,7 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
-import 'package:nerve/core/globalvalues/globals.dart' as globals;
+import 'package:nerve/main.dart';
 
 class Storage {
   final firebase_storage.FirebaseStorage storage =
@@ -29,7 +29,7 @@ class Storage {
     String semester,
     String content,
   ) async {
-    String revision = globals.revision;
+    String revision = userData.revision;
     firebase_storage.ListResult results =
         await storage.ref('docs/$revision/$semester/$content').listAll();
     // ignore: avoid_function_literals_in_foreach_calls
@@ -57,7 +57,7 @@ class Storage {
     String semester,
     String content,
   ) {
-    String revision = globals.revision;
+    String revision = userData.revision;
     String pdfNamePursed = pdfName.replaceAll(RegExp('\\s+'), '%20');
     String semsterPursed = semester.replaceAll(RegExp('\\s+'), '%20');
     // ignore: unnecessary_brace_in_string_interps

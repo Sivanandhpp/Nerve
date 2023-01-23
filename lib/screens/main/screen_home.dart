@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nerve/main.dart';
 import 'package:nerve/screens/widgets/popup_sem_select.dart';
 import 'package:provider/provider.dart';
 import '../../core/services/auth_service.dart';
-import '../../core/globalvalues/globals.dart' as globals;
 import '../../core/globalvalues/sizedboxes.dart' as sb;
 import '../../core/globalvalues/theme_color.dart';
-import '../../core/services/sharedpref_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -43,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          globals.userName,
+                          userData.name,
                           style: GoogleFonts.ubuntu(
                             color: ThemeColor.secondary,
                             fontSize: 35,
@@ -127,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 5,
                                     ),
                                     Text(
-                                      "Revision ${globals.revision}",
+                                      "Revision ${userData.revision}",
                                       style: GoogleFonts.ubuntu(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w400,

@@ -18,8 +18,8 @@ class Post {
     batch = snapshot.child('batch').value;
     revision = snapshot.child('revision').value;
     role = snapshot.child('role').value;
-    spService.setSharedprefUser(
-        uid, name, email, phoneNo, password, batch, revision, role);
+    // spService.setSharedprefUser(
+    //     uid, name, email, phoneNo, password, batch, revision, role);
   }
 
   setUserData(
@@ -30,7 +30,7 @@ class Post {
       String setpassword,
       String setbatch,
       String setrevision,
-      String role,
+      String setrole,
       bool setData) {
     userid = uid;
     name = setname;
@@ -39,17 +39,17 @@ class Post {
     password = setpassword;
     batch = setbatch;
     revision = setrevision;
-    role = role;
+    role = setrole;
 
     if (setData) {
       
       //SET DATA TO SHARED PREFERANCES WHILE SIGN UP
-      spService.setSharedprefUser(uid, setname, setemail, setphoneNo,
-          setpassword, setbatch, setrevision, "user");
+      // spService.setSharedprefUser(uid, setname, setemail, setphoneNo,
+      //     setpassword, setbatch, setrevision, setrole);
 
       //SET DATA TO REALTIME DATABASE WHILE SIGN UP
       dbService.setDatabaseUser(uid, setname, setemail, setphoneNo, setpassword,
-          setbatch, setrevision, "user");
+          setbatch, setrevision, setrole);
     }
   }
 }

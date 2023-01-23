@@ -4,7 +4,6 @@ import 'package:nerve/core/services/database_service.dart';
 import 'package:nerve/core/services/error_handler.dart';
 import 'package:nerve/core/services/sharedpref_service.dart';
 import '../../main.dart';
-import '../globalvalues/globals.dart' as globals;
 import 'package:nerve/core/globalvalues/userauth_model.dart';
 
 class AuthService {
@@ -35,7 +34,6 @@ class AuthService {
         email: email,
         password: password,
       );
-      dbService.getDatabaseUser(credential.user!.uid);
       return _userFromFirebase(credential.user);
     } on auth.FirebaseAuthException catch (e) {
       errHandler.fromErrorCode(e, context);
@@ -53,7 +51,7 @@ class AuthService {
       String batch,
       String revision,
       BuildContext context) async {
-    globals.userName = name;
+    // globals.userName = name;
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -62,7 +60,7 @@ class AuthService {
       credential.user!.linkWithPhoneNumber(phoneNo);
       credential.user!.updateDisplayName(name);
       userData.setUserData(credential.user!.uid, name, email, phoneNo, password,
-          batch, 'user', revision, true);
+          batch, revision, 'user', true);
       return _userFromFirebase(credential.user);
     } on auth.FirebaseAuthException catch (e) {
       errHandler.fromErrorCode(e, context);
@@ -73,7 +71,7 @@ class AuthService {
   }
 
   Future<void> signOut() async {
-    spService.clearSharedprefUser();
+    // spService.clearSharedprefUser();
     return await _firebaseAuth.signOut();
   }
 }
