@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nerve/main.dart';
+import 'package:nerve/screens/main/screen_profile.dart';
 import 'package:nerve/screens/widgets/popup_sem_select.dart';
-import 'package:provider/provider.dart';
-import '../../core/services/auth_service.dart';
 import '../../core/globalvalues/sizedboxes.dart' as sb;
 import '../../core/globalvalues/theme_color.dart';
 
@@ -19,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SemSelect semsel = SemSelect();
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+   
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -60,8 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: ThemeColor.secondary,
                         ),
                       ),
-                      onTap: () async {
-                        await authService.signOut();
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ScreenProfile()),
+                        );
+                        
                       },
                     )
                   ],
