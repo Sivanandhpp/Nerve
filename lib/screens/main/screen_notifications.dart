@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nerve/main.dart';
 import 'package:nerve/screens/main/screen_addnotifi.dart';
 import 'package:nerve/screens/widgets/image_viewer.dart';
+import 'package:nerve/screens/widgets/pdf_viewer.dart';
 import '../../core/globalvalues/sizedboxes.dart' as sb;
 import '../../core/globalvalues/theme_color.dart';
 import '../../core/services/database_service.dart';
@@ -100,6 +101,30 @@ class _ScreenNotificationState extends State<ScreenNotification> {
   Widget isImageAvailable(snapshot) {
     if (snapshot.child('url').value == "null") {
       return Container();
+    } else if (snapshot.child('extension').value == ".pdf") {
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PdfViewer(
+                  src: snapshot.child('url').value.toString(),
+                  pdfName: snapshot.child('title').value.toString()),
+            ),
+          );
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: const SizedBox(
+            height: 80.0,
+            width: 80.0,
+            child: Image(
+              image: AssetImage("assets/images/pdf.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      );
     }
     return GestureDetector(
       onTap: () {

@@ -30,10 +30,6 @@ class Storage {
     String revision = userData.revision;
     firebase_storage.ListResult results =
         await storage.ref('docs/$revision/$semester/$content').listAll();
-    // ignore: avoid_function_literals_in_foreach_calls
-    // results.items.forEach((firebase_storage.Reference ref) {
-    //   print('Found file: $ref');
-    // });
     return results;
   }
 
@@ -68,7 +64,7 @@ class Storage {
   Future<String> uploadNotificationImg(
       String filePath, String fileName, BuildContext context) async {
     File file = File(filePath);
-     String fileNamePursed = fileName.replaceAll(RegExp('\\s+'), '%20');
+     String fileNamePursed = fileName.replaceAll(RegExp('\\s+'), 'x');
     try {
       await storage.ref('notifications/$fileNamePursed').putFile(file);
     } on firebase_core.FirebaseException catch (e) {

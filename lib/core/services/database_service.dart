@@ -37,6 +37,7 @@ class DatabaseService {
     String title,
     String content,
     String url,
+    String fileExt,
     DateTime now,
     BuildContext context
   ) async {
@@ -52,7 +53,8 @@ class DatabaseService {
         'time': time,
         'title': title,
         'content': content,
-        'url':url
+        'url':url,
+        'extension':fileExt
       });
     } catch (e) {
       errHandler.fromErrorCode(e, context);

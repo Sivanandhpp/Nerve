@@ -149,7 +149,6 @@ class _AddNotificationState extends State<AddNotification> {
                               selectedFilePath = results.files.single.path!;
                               selectedFileExtension =
                                   ".${selectedFileName.split('.').last}";
-                              print(selectedFileExtension);
                             });
                           },
                           child: Container(
@@ -192,8 +191,6 @@ class _AddNotificationState extends State<AddNotification> {
                       padding:
                           const EdgeInsets.only(left: 20, right: 20, top: 5),
                       child: TextField(
-                        maxLength: 20,
-                      
                         controller: _titleTextController,
                         onChanged: (value) {
                           title = value;
@@ -258,7 +255,8 @@ class _AddNotificationState extends State<AddNotification> {
                           content: Text(
                               'No File Selected, Adding notification without image')));
                       dbService
-                          .addNotification(title, content, 'null', now, context)
+                          .addNotification(
+                              title, content, 'null', 'null', now, context)
                           .then((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -286,8 +284,8 @@ class _AddNotificationState extends State<AddNotification> {
                           .then(
                         (url) {
                           dbService
-                              .addNotification(
-                                  title, content, url, now, context)
+                              .addNotification(title, content, url,
+                                  selectedFileExtension, now, context)
                               .then((value) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
