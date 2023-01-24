@@ -124,6 +124,8 @@ class _ScreenProfileState extends State<ScreenProfile> {
                 GestureDetector(
                   onTap: () async {
                     await authService.signOut();
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
                   },
                   child: Container(
                     margin: EdgeInsets.all(40),
