@@ -1,27 +1,25 @@
-// ignore_for_file: avoid_print
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:flutter/cupertino.dart';
 import 'package:nerve/main.dart';
+
+import 'error_handler.dart';
 
 class Storage {
   final firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
+  ErrorHandler errHandler = ErrorHandler();
 
-  Future<void> uploadFile(
-    String filePath,
-    String fileName,
-    String revision,
-    String semester,
-    String content,
-  ) async {
+  Future<void> uploadFile(String filePath, String fileName, String revision,
+      String semester, String content, BuildContext context) async {
     File file = File(filePath);
     try {
       await storage
           .ref('docs/$revision/$semester/$content/$fileName')
           .putFile(file);
     } on firebase_core.FirebaseException catch (e) {
-      print(e);
+      errHandler.fromErrorCode(e, context);
     }
   }
 
@@ -33,9 +31,9 @@ class Storage {
     firebase_storage.ListResult results =
         await storage.ref('docs/$revision/$semester/$content').listAll();
     // ignore: avoid_function_literals_in_foreach_calls
-    results.items.forEach((firebase_storage.Reference ref) {
-      print('Found file: $ref');
-    });
+    // results.items.forEach((firebase_storage.Reference ref) {
+    //   print('Found file: $ref');
+    // });
     return results;
   }
 
@@ -63,4 +61,22 @@ class Storage {
     // ignore: unnecessary_brace_in_string_interps
     return "https://firebasestorage.googleapis.com/v0/b/studyapp-6c7e9.appspot.com/o/docs%2F${revision}%2F${semsterPursed}%2F${content}%2F${pdfNamePursed}?alt=media";
   }
+
+
+
+  // TO HANDLE NOTIFICATION IMG
+  Future<String> uploadNotificationImg(
+      String filePath, String fileName, BuildContext context) async {
+    File file = File(filePath);
+     String fileNamePursed = fileName.replaceAll(RegExp('\\s+'), '%20');
+    try {
+      await storage.ref('notifications/$fileNamePursed').putFile(file);
+    } on firebase_core.FirebaseException catch (e) {
+      errHandler.fromErrorCode(e, context);
+    }
+    return "https://firebasestorage.googleapis.com/v0/b/studyapp-6c7e9.appspot.com/o/notifications%2F${fileNamePursed}?alt=media";
+  }
+
+  
+
 }

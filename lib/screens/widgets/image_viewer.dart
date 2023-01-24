@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/globalvalues/theme_color.dart';
 
-class PdfViewer extends StatelessWidget {
-  const PdfViewer({super.key, required this.src, required this.pdfName});
-  final String pdfName;
+class ImageViewer extends StatelessWidget {
+  const ImageViewer({super.key, required this.src, required this.imgName});
+  final String imgName;
   final String src;
   @override
   Widget build(BuildContext context) {
@@ -38,9 +37,9 @@ class PdfViewer extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            pdfName.length > 18
-                                ? '${pdfName.substring(0, 18)}...'
-                                : pdfName,
+                            imgName.length > 18
+                                ? '${imgName.substring(0, 18)}...'
+                                : imgName,
                             style: GoogleFonts.ubuntu(
                               color: ThemeColor.black,
                               fontSize: 26,
@@ -69,10 +68,12 @@ class PdfViewer extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: SfPdfViewer.network(
+          child: SingleChildScrollView(
+        child: Image.network(
           src,
+          fit: BoxFit.fitWidth,
         ),
-      ),
+      )),
     );
   }
 }

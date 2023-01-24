@@ -5,7 +5,6 @@ import 'package:nerve/core/services/routing_service.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/globalvalues/user_data.dart';
-import 'core/services/sharedpref_service.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
