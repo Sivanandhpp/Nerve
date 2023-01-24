@@ -76,21 +76,21 @@ class _ScreenUploadState extends State<ScreenUpload> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    InkWell(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: ThemeColor.lightGrey,
-                            borderRadius: BorderRadius.circular(12)),
-                        padding: const EdgeInsets.all(12),
-                        child: const Icon(
-                          Icons.verified_user,
-                          color: Colors.white,
-                        ),
-                      ),
-                      onTap: () async {
-                        await spInstance.setBool('seen', false);
-                      },
-                    )
+                    // InkWell(
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //         color: ThemeColor.lightGrey,
+                    //         borderRadius: BorderRadius.circular(12)),
+                    //     padding: const EdgeInsets.all(12),
+                    //     child: const Icon(
+                    //       Icons.verified_user,
+                    //       color: Colors.white,
+                    //     ),
+                    //   ),
+                    //   onTap: () async {
+                    //     await spInstance.setBool('seen', false);
+                    //   },
+                    // )
                   ],
                 ),
                 sb.height20,
@@ -402,7 +402,8 @@ class _ScreenUploadState extends State<ScreenUpload> {
                               selectedFileName,
                               dropdownRevision,
                               dropdownSemester,
-                              dropdownContent,context)
+                              dropdownContent,
+                              context)
                           .then(((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
