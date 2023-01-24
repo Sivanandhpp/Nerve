@@ -11,6 +11,7 @@ class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SignUpPageState createState() => _SignUpPageState();
 }
 
@@ -287,6 +288,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 _batch.toString(),
                                 _revision,
                                 context);
+                            // ignore: use_build_context_synchronously
                             Navigator.pop(context);
                           }
                         },

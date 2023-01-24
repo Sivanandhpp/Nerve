@@ -41,7 +41,7 @@ class ScreenAbout extends StatelessWidget {
                 //         ),
                 //       ),
                 //       onTap: () {
-                //         // TODO on tap
+                //         
                 //       },
                 //     ),
                 //   ],

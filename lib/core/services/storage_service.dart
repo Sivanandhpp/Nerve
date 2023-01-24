@@ -70,7 +70,7 @@ class Storage {
     } on firebase_core.FirebaseException catch (e) {
       errHandler.fromErrorCode(e, context);
     }
-    return "https://firebasestorage.googleapis.com/v0/b/studyapp-6c7e9.appspot.com/o/notifications%2F${fileNamePursed}?alt=media";
+    return "https://firebasestorage.googleapis.com/v0/b/studyapp-6c7e9.appspot.com/o/notifications%2F$fileNamePursed?alt=media";
   }
 
   

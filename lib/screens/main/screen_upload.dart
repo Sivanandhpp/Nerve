@@ -5,8 +5,6 @@ import 'package:nerve/core/services/storage_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
-
 final List<String> contents = [
   'Syllabus',
   'Lab Manual',
