@@ -97,6 +97,35 @@ class _ScreenNotificationState extends State<ScreenNotification> {
     );
   }
 
+  Widget isImageAvailable(snapshot) {
+    if (snapshot.child('url').value == "null") {
+      return Container();
+    }
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ImageViewer(
+                src: snapshot.child('url').value.toString(),
+                imgName: snapshot.child('title').value.toString()),
+          ),
+        );
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: SizedBox(
+          height: 80.0,
+          width: 80.0,
+          child: Image(
+            image: NetworkImage(snapshot.child('url').value.toString()),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +142,9 @@ class _ScreenNotificationState extends State<ScreenNotification> {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   defaultChild: const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: ThemeColor.primary,
+                    ),
                   ),
                   itemBuilder: (context, snapshot, animation, index) {
                     return Column(
@@ -134,65 +165,45 @@ class _ScreenNotificationState extends State<ScreenNotification> {
                           ),
                           padding: const EdgeInsets.all(20.0),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ImageViewer(
-                                          src: snapshot
-                                              .child('url')
+                              isImageAvailable(snapshot),
+                              sb.width10,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    titleWithDel(snapshot),
+                                    sb.height10,
+                                    Text(
+                                      snapshot
+                                          .child('content')
+                                          .value
+                                          .toString(),
+                                      style: GoogleFonts.ubuntu(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 1,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          snapshot
+                                              .child('date')
                                               .value
                                               .toString(),
-                                          imgName: snapshot
-                                              .child('title')
-                                              .value
-                                              .toString()),
-                                    ),
-                                  );
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: SizedBox(
-                                    height: 80.0,
-                                    width: 80.0,
-                                    child: Image(
-                                      image: NetworkImage(snapshot
-                                          .child('url')
-                                          .value
-                                          .toString()),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              sb.width10,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  titleWithDel(snapshot),
-                                  sb.height10,
-                                  Text(
-                                    snapshot.child('content').value.toString(),
-                                    style: GoogleFonts.ubuntu(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  sb.height10,
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        snapshot.child('date').value.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 10,
+                                          style: const TextStyle(
+                                            fontSize: 10,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

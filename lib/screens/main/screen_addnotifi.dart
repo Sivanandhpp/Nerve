@@ -6,15 +6,15 @@ import 'package:file_picker/file_picker.dart';
 import 'package:nerve/core/services/database_service.dart';
 import 'package:nerve/core/services/storage_service.dart';
 
-String selectedFileName = "File name";
+String selectedFileName = "Select a file";
 String selectedFilePath = "null";
+String selectedFileExtension = "null";
 bool isLoading = false;
 String content = "Add content";
 String title = "Add title";
 
 class AddNotification extends StatefulWidget {
   const AddNotification({super.key});
-
   @override
   State<AddNotification> createState() => _AddNotificationState();
 }
@@ -129,6 +129,7 @@ class _AddNotificationState extends State<AddNotification> {
                         GestureDetector(
                           onTap: () async {
                             final results = await FilePicker.platform.pickFiles(
+                                allowCompression: true,
                                 allowMultiple: false,
                                 type: FileType.custom,
                                 allowedExtensions: [
@@ -146,6 +147,9 @@ class _AddNotificationState extends State<AddNotification> {
                             setState(() {
                               selectedFileName = results!.files.single.name;
                               selectedFilePath = results.files.single.path!;
+                              selectedFileExtension =
+                                  ".${selectedFileName.split('.').last}";
+                              print(selectedFileExtension);
                             });
                           },
                           child: Container(
@@ -188,6 +192,8 @@ class _AddNotificationState extends State<AddNotification> {
                       padding:
                           const EdgeInsets.only(left: 20, right: 20, top: 5),
                       child: TextField(
+                        maxLength: 20,
+                      
                         controller: _titleTextController,
                         onChanged: (value) {
                           title = value;
@@ -241,7 +247,13 @@ class _AddNotificationState extends State<AddNotification> {
                 GestureDetector(
                   onTap: () {
                     DateTime now = DateTime.now();
-                    if (selectedFilePath == "null") {
+                    if (title == "Add title") {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Add a title before submitting")));
+                    } else if (content == "Add content") {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Add a content before submitting")));
+                    } else if (selectedFilePath == "null") {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text(
                               'No File Selected, Adding notification without image')));
@@ -261,12 +273,6 @@ class _AddNotificationState extends State<AddNotification> {
                         });
                         Navigator.pop(context);
                       });
-                    } else if (content == "Add content") {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Add content")));
-                    } else if (title == "Add title") {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Add title")));
                     } else {
                       setState(() {
                         isLoading = true;
