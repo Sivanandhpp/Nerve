@@ -264,7 +264,7 @@ class ScreenAbout extends StatelessWidget {
                                       height: 5,
                                     ),
                                     Text(
-                                      "Developer",
+                                      "Software Developer",
                                       style: GoogleFonts.ubuntu(
                                           color: ThemeColor.grey,
                                           fontSize: 15,
@@ -276,7 +276,9 @@ class ScreenAbout extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                launchUrl(Uri(
+                                launchUrl(
+                                  mode: LaunchMode.externalApplication,
+                                  Uri(
                                     scheme: "https",
                                     host: "amalrajkp18.github.io"));
                               },
@@ -359,7 +361,9 @@ class ScreenAbout extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                launchUrl(Uri(
+                                launchUrl(
+                                  mode: LaunchMode.externalApplication,
+                                  Uri(
                                     scheme: "https",
                                     host: "sivanandhpp.github.io"));
                               },

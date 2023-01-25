@@ -22,7 +22,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
                 GestureDetector(
@@ -128,7 +128,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     Navigator.pop(context);
                   },
                   child: Container(
-                    margin: EdgeInsets.all(40),
+                    margin: const EdgeInsets.all(40),
                     width: double.infinity,
                     height: 60,
                     decoration: BoxDecoration(

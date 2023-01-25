@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -44,40 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCqERq7lJEFhnqlgF0IzeHaqqhewmnaXMg',
-    appId: '1:274807323300:web:1058d65edbf45a41fcc431',
-    messagingSenderId: '274807323300',
-    projectId: 'studyapp-6c7e9',
-    authDomain: 'studyapp-6c7e9.firebaseapp.com',
-    storageBucket: 'studyapp-6c7e9.appspot.com',
-    measurementId: 'G-PJ9Y033SVX',
+    apiKey: 'AIzaSyAnA-aKS18uhAJK8Wi8phuTGf_tfq90ktE',
+    appId: '1:783845818183:web:c2985b3578db929b2c9662',
+    messagingSenderId: '783845818183',
+    projectId: 'nerve-io',
+    authDomain: 'nerve-io.firebaseapp.com',
+    storageBucket: 'nerve-io.appspot.com',
+    measurementId: 'G-2RGXV7HT9L',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBlD6D_IRkfAGBTY5Y5fw-rQKDcveIpgVk',
-    appId: '1:274807323300:android:bea109b8c26ecd02fcc431',
-    messagingSenderId: '274807323300',
-    projectId: 'studyapp-6c7e9',
-    storageBucket: 'studyapp-6c7e9.appspot.com',
+    apiKey: 'AIzaSyAni16BApLiyfkyNkQI943m5u0_rawOCmg',
+    appId: '1:783845818183:android:a205b86bcf85ce662c9662',
+    messagingSenderId: '783845818183',
+    projectId: 'nerve-io',
+    storageBucket: 'nerve-io.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBgN42FF10hHLC7V6NmMq-VmF_c_bXOmu4',
-    appId: '1:274807323300:ios:3d85b368fd65d4e5fcc431',
-    messagingSenderId: '274807323300',
-    projectId: 'studyapp-6c7e9',
-    storageBucket: 'studyapp-6c7e9.appspot.com',
-    iosClientId: '274807323300-pakf5o8ddifdedtijitlpdr93ua02j05.apps.googleusercontent.com',
-    iosBundleId: 'com.example.nerve',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBgN42FF10hHLC7V6NmMq-VmF_c_bXOmu4',
-    appId: '1:274807323300:ios:3d85b368fd65d4e5fcc431',
-    messagingSenderId: '274807323300',
-    projectId: 'studyapp-6c7e9',
-    storageBucket: 'studyapp-6c7e9.appspot.com',
-    iosClientId: '274807323300-pakf5o8ddifdedtijitlpdr93ua02j05.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAZ0PpCV5myBsZnlr6yrGCM053-UeAB2qY',
+    appId: '1:783845818183:ios:54a394eec5c948e02c9662',
+    messagingSenderId: '783845818183',
+    projectId: 'nerve-io',
+    storageBucket: 'nerve-io.appspot.com',
+    iosClientId: '783845818183-c70aola19q9ipbc1l4rj5kttk0ajt3rq.apps.googleusercontent.com',
     iosBundleId: 'com.example.nerve',
   );
 }

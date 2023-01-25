@@ -98,7 +98,7 @@ class _ScreenNotificationState extends State<ScreenNotification> {
     );
   }
 
-  Widget isImageAvailable(snapshot) {
+  Widget imgOrPdf(snapshot) {
     if (snapshot.child('url').value == "null") {
       return Container();
     } else if (snapshot.child('extension').value == ".pdf") {
@@ -166,6 +166,9 @@ class _ScreenNotificationState extends State<ScreenNotification> {
                   query: dbReference.child("notifications"),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
+                  sort: (b, a) {
+                    return a.key.toString().compareTo(b.key.toString());
+                  },
                   defaultChild: const Center(
                     child: CircularProgressIndicator(
                       color: ThemeColor.primary,
@@ -192,7 +195,7 @@ class _ScreenNotificationState extends State<ScreenNotification> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              isImageAvailable(snapshot),
+                              imgOrPdf(snapshot),
                               sb.width10,
                               Expanded(
                                 child: Column(

@@ -33,28 +33,22 @@ class DatabaseService {
     userReferance.update({key: value});
   }
 
-  Future<void> addNotification(
-    String title,
-    String content,
-    String url,
-    String fileExt,
-    DateTime now,
-    BuildContext context
-  ) async {
+  Future<void> addNotification(String title, String content, String url,
+      String fileExt, DateTime now, BuildContext context) async {
     try {
-     
 
+      String notiRef = "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}";
       String time = "${now.hour}:${now.minute}:${now.second}";
       String date = "${now.day}/${now.month}/${now.year}";
 
-      final notificationReferance = dbReference.child('notifications/$time');
+      final notificationReferance = dbReference.child('notifications/$notiRef');
       notificationReferance.set({
         'date': date,
         'time': time,
         'title': title,
         'content': content,
-        'url':url,
-        'extension':fileExt
+        'url': url,
+        'extension': fileExt
       });
     } catch (e) {
       errHandler.fromErrorCode(e, context);

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:nerve/core/services/auth_service.dart';
 import 'package:nerve/core/services/routing_service.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ import 'core/globalvalues/theme_color.dart';
 
 late SharedPreferences spInstance;
 late DatabaseReference dbReference;
+late FirebaseMessaging fmInstance;
 final userData = Post();
 
 void main() async {
@@ -21,7 +23,16 @@ void main() async {
   );
   spInstance = await SharedPreferences.getInstance();
   dbReference = FirebaseDatabase.instance.ref();
-  // await FirebaseAuth.instance.signInAnonymously();
+  fmInstance = FirebaseMessaging.instance;
+  final settings = await fmInstance.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: ThemeColor.scaffoldBgColor,

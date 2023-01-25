@@ -18,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   SemSelect semsel = SemSelect();
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -65,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                               builder: (context) => ScreenProfile()),
                         );
-                        
                       },
                     )
                   ],
@@ -114,12 +112,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       "Syllabus",
                                       style: GoogleFonts.ubuntu(
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold,
+                                          color: ThemeColor.white),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Batch ${userData.batch}",
+                                      style: GoogleFonts.ubuntu(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
                                           color: ThemeColor.white),
                                     ),
                                     const SizedBox(

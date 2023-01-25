@@ -275,9 +275,9 @@ class _AddNotificationState extends State<AddNotification> {
                       setState(() {
                         isLoading = true;
                       });
-
+                     
                       String fileName =
-                          "${now.hour}${now.minute}${now.second}$selectedFileName";
+                          "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}$selectedFileName";
                       storage
                           .uploadNotificationImg(
                               selectedFilePath, fileName, context)
