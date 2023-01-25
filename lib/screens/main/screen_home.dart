@@ -50,8 +50,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     InkWell(
-                      child: userData.profile == 'null'
-                          ? const CircleAvatar(
+                      child: CircleAvatar(
+                        radius: 28,
+                        backgroundColor: ThemeColor.white,
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl: userData.profile,
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                const CircleAvatar(
                               radius: 30,
                               backgroundColor: ThemeColor.white,
                               child: ClipOval(
@@ -62,29 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fit: BoxFit.fill,
                                 ),
                               ),
-                            )
-                          : CircleAvatar(
-                              radius: 30,
-                              backgroundColor: ThemeColor.white,
-                              child: ClipOval(
-                                child: CachedNetworkImage(
-                                  imageUrl: userData.profile,
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                ),
-                              ),
                             ),
+                          ),
+                        ),
+                      ),
                       onTap: () {
                         Navigator.pushReplacement(
                           context,

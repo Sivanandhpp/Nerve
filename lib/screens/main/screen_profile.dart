@@ -38,18 +38,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
         )),
       );
     }
-    if (userData.profile == 'null') {
-      return const CircleAvatar(
-        radius: 70,
-        backgroundColor: Colors.white,
-        child: ClipOval(
-          child: Image(
-            image: AssetImage('assets/images/avatar.jpg'),
-            fit: BoxFit.fill,
-          ),
-        ),
-      );
-    }
+
     return CircleAvatar(
       radius: 75,
       backgroundColor: ThemeColor.white,
@@ -65,30 +54,17 @@ class _ScreenProfileState extends State<ScreenProfile> {
             ),
           ),
           placeholder: (context, url) => const CircularProgressIndicator(),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          errorWidget: (context, url, error) => const CircleAvatar(
+            radius: 70,
+            backgroundColor: Colors.white,
+            child: ClipOval(
+              child: Image(
+                image: AssetImage('assets/images/avatar.jpg'),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
         ),
-
-        // Image(
-        //   height: 140,
-        //   width: 140,
-        //   loadingBuilder: (BuildContext context, Widget child,
-        //       ImageChunkEvent? loadingProgress) {
-        //     if (loadingProgress == null) {
-        //       return child;
-        //     }
-        //     return Center(
-        //       child: CircularProgressIndicator(
-        //         color: ThemeColor.primary,
-        //         value: loadingProgress.expectedTotalBytes != null
-        //             ? loadingProgress.cumulativeBytesLoaded /
-        //                 loadingProgress.expectedTotalBytes!
-        //             : null,
-        //       ),
-        //     );
-        //   },
-        //   image: NetworkImage(userData.profile),
-        //   fit: BoxFit.fill,
-        // ),
       ),
     );
   }
@@ -213,8 +189,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                         isLoading = true;
                         selectedFileName = results.files.single.name;
                         selectedFilePath = results.files.single.path!;
-                        String fileName =
-                            "${userData.phoneNo}_${userData.name}_${selectedFileName}";
+                        String fileName = "${userData.userid}_${userData.name}";
                         storage
                             .uploadProfileImg(
                                 selectedFilePath, fileName, context)
@@ -229,7 +204,47 @@ class _ScreenProfileState extends State<ScreenProfile> {
                   child: Stack(
                     alignment: Alignment.bottomRight,
                     children: [
-                      getAvatar(),
+                      isLoading
+                          ? const CircleAvatar(
+                              radius: 70,
+                              backgroundColor: Colors.white,
+                              child: ClipOval(
+                                  child: CircularProgressIndicator(
+                                color: ThemeColor.primary,
+                              )),
+                            )
+                          : CircleAvatar(
+                              radius: 75,
+                              backgroundColor: ThemeColor.white,
+                              child: ClipOval(
+                                child: CachedNetworkImage(
+                                  imageUrl: userData.profile,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      const CircleAvatar(
+                                    radius: 70,
+                                    backgroundColor: Colors.white,
+                                    child: ClipOval(
+                                      child: Image(
+                                        image: AssetImage(
+                                            'assets/images/avatar.jpg'),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                       Container(
                         height: 40,
                         width: 40,

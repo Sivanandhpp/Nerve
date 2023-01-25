@@ -77,7 +77,7 @@ class Storage {
   Future<String> uploadProfileImg(
       String filePath, String fileName, BuildContext context) async {
     File file = File(filePath);
-    String fileNamePursed = fileName.replaceAll(RegExp('\\s+'), 'x');
+    String fileNamePursed = fileName.replaceAll(RegExp('\\s+'), '_');
     String url =
         "https://firebasestorage.googleapis.com/v0/b/nerve-io.appspot.com/o/profile%2F$fileNamePursed?alt=media";
     userData.profile = url;
