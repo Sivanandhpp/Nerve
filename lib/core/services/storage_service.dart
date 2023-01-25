@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:flutter/cupertino.dart';
+import 'package:nerve/core/services/database_service.dart';
 import 'package:nerve/main.dart';
 
 import 'error_handler.dart';
@@ -10,6 +11,7 @@ class Storage {
   final firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
   ErrorHandler errHandler = ErrorHandler();
+  DatabaseService dbService = DatabaseService();
 
   Future<void> uploadFile(String filePath, String fileName, String revision,
       String semester, String content, BuildContext context) async {
@@ -69,5 +71,23 @@ class Storage {
       errHandler.fromErrorCode(e, context);
     }
     return "https://firebasestorage.googleapis.com/v0/b/nerve-io.appspot.com/o/notifications%2F$fileNamePursed?alt=media";
+  }
+
+  //TO HANDLE PROFILE IMAGE
+  Future<String> uploadProfileImg(
+      String filePath, String fileName, BuildContext context) async {
+    File file = File(filePath);
+    String fileNamePursed = fileName.replaceAll(RegExp('\\s+'), 'x');
+    String url =
+        "https://firebasestorage.googleapis.com/v0/b/nerve-io.appspot.com/o/profile%2F$fileNamePursed?alt=media";
+    userData.profile = url;
+    try {
+      await storage.ref('profile/$fileNamePursed').putFile(file).then((value) {
+        dbService.addProfilePic(url, userData.userid, context);
+      });
+    } on firebase_core.FirebaseException catch (e) {
+      errHandler.fromErrorCode(e, context);
+    }
+    return url;
   }
 }

@@ -72,15 +72,20 @@ class _ScreenNotificationState extends State<ScreenNotification> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            snapshot.child('title').value.toString(),
-            style: GoogleFonts.ubuntu(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
+          Flexible(
+            child: Text(
+              snapshot.child('title').value.toString(),
+              style: GoogleFonts.ubuntu(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
           ),
           InkWell(
-            child: const Icon(FontAwesomeIcons.trash),
+            child: const Icon(
+              FontAwesomeIcons.trash,
+              color: ThemeColor.ytRed,
+            ),
             onTap: () {
               dbReference.child('notifications/${snapshot.key}').remove();
             },

@@ -2,12 +2,24 @@ import 'package:nerve/core/services/database_service.dart';
 import 'package:nerve/core/services/sharedpref_service.dart';
 
 class Post {
-  late String name, email, phoneNo, password, batch, revision, role, userid;
+  late String name,
+      email,
+      phoneNo,
+      password,
+      batch,
+      revision,
+      role,
+      userid,
+      profile;
   SharedPreferencesService spService = SharedPreferencesService();
   DatabaseService dbService = DatabaseService();
 
   uidToClass(uid) {
     userid = uid;
+  }
+
+  profileToClass(profileurl) {
+    profile = profileurl;
   }
 
   snapshotToClass(uid, snapshot) {
@@ -18,6 +30,7 @@ class Post {
     batch = snapshot.child('batch').value;
     revision = snapshot.child('revision').value;
     role = snapshot.child('role').value;
+    profile = snapshot.child('profile').value;
     // spService.setSharedprefUser(
     //     uid, name, email, phoneNo, password, batch, revision, role);
   }
@@ -42,7 +55,6 @@ class Post {
     role = setrole;
 
     if (setData) {
-      
       //SET DATA TO SHARED PREFERANCES WHILE SIGN UP
       // spService.setSharedprefUser(uid, setname, setemail, setphoneNo,
       //     setpassword, setbatch, setrevision, setrole);

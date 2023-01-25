@@ -29,7 +29,8 @@ class RoutingService extends StatelessWidget {
           //   globals.userName = user!.username.toString();
           // }
           if (user != null) {
-            // globals.userID = user.uid;
+            userData.uidToClass(user.uid);
+
             return FutureBuilder<Post>(
               future: dbService.getDatabaseUser(user.uid),
               builder: (BuildContext context, AsyncSnapshot<Post> snapshot) {

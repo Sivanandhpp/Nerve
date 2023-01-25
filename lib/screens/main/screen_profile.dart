@@ -1,7 +1,9 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nerve/core/services/auth_service.dart';
+import 'package:nerve/core/services/storage_service.dart';
 import 'package:nerve/main.dart';
 import 'package:provider/provider.dart';
 import '../../core/globalvalues/sizedboxes.dart' as sb;
@@ -15,6 +17,45 @@ class ScreenProfile extends StatefulWidget {
 }
 
 class _ScreenProfileState extends State<ScreenProfile> {
+  bool isLoading = false;
+  String profileUrl = 'null';
+  String selectedFileName = '';
+  String selectedFilePath = '';
+  Storage storage = Storage();
+  Widget getAvatar() {
+    if (isLoading) {
+      return const CircleAvatar(
+        radius: 70,
+        backgroundColor: Colors.white,
+        child: ClipOval(
+            child: CircularProgressIndicator(
+          color: ThemeColor.primary,
+        )),
+      );
+    }
+    if (userData.profile == 'null') {
+      return const CircleAvatar(
+        radius: 70,
+        backgroundColor: Colors.white,
+        child: ClipOval(
+          child: Image(
+            image: AssetImage('assets/images/avatar.jpg'),
+          ),
+        ),
+      );
+    }
+    return CircleAvatar(
+      radius: 70,
+      backgroundColor: Colors.white,
+      child: ClipOval(
+        child: Image(
+          image: NetworkImage(userData.profile),
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
@@ -53,36 +94,56 @@ class _ScreenProfileState extends State<ScreenProfile> {
                           ),
                         ],
                       ),
-                      InkWell(
-                        child: Container(
-                          padding: const EdgeInsets.all(12),
-                          child: const Icon(
-                            FontAwesomeIcons.penToSquare,
-                            size: 30,
-                            color: ThemeColor.black,
-                          ),
-                        ),
-                        onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => const AddNotification()),
-                          // );
-                        },
-                      ),
                     ],
                   ),
                 ),
                 sb.height20,
-                const Center(
-                  child: CircleAvatar(
-                    radius: 70,
-                    backgroundColor: Colors.transparent,
-                    child: ClipOval(
-                      child: Image(
-                        image: AssetImage('assets/images/avatar.jpg'),
-                      ),
-                    ),
+                GestureDetector(
+                  onTap: () async {
+                    final results = await FilePicker.platform.pickFiles(
+                      allowCompression: true,
+                      allowMultiple: false,
+                      type: FileType.image,
+                    );
+                    if (results == null) {
+                      // ignore: use_build_context_synchronously
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('No Image Selected')));
+                    } else {
+                      setState(() {
+                        isLoading = true;
+                        selectedFileName = results!.files.single.name;
+                        selectedFilePath = results.files.single.path!;
+                        String fileName =
+                            "${userData.phoneNo}_${userData.name}_${selectedFileName}";
+                        storage
+                            .uploadProfileImg(
+                                selectedFilePath, fileName, context)
+                            .then((value) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                        });
+                      });
+                    }
+                  },
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      getAvatar(),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            color: ThemeColor.primary,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: const Icon(
+                          FontAwesomeIcons.camera,
+                          size: 20,
+                          color: ThemeColor.white,
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 sb.height20,

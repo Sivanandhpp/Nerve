@@ -50,19 +50,39 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     InkWell(
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        child: const Icon(
-                          FontAwesomeIcons.solidUser,
-                          size: 35,
-                          color: ThemeColor.secondary,
-                        ),
-                      ),
+                      child: userData.profile == 'null'
+                          ? Container(
+                              padding: const EdgeInsets.all(12),
+                              child: const CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.white,
+                                child: ClipOval(
+                                  child: Image(
+                                    image:
+                                        AssetImage("assets/images/avatar.jpg"),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.all(12),
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.white,
+                                child: ClipOval(
+                                  child: Image(
+                                    image: NetworkImage(userData.profile),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                            ),
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ScreenProfile()),
+                              builder: (context) => const ScreenProfile()),
                         );
                       },
                     )
