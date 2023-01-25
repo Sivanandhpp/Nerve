@@ -11,7 +11,7 @@ class UserDashBoard extends StatelessWidget {
     const HomeScreen(),
     const QueryScreen(),
     const ScreenNotification(),
-    const ScreenAbout(),
+    ScreenAbout(topBar: false),
   ];
   @override
   Widget build(BuildContext context) {

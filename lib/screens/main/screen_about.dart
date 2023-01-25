@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nerve/main.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../core/globalvalues/sizedboxes.dart' as sb;
 import '../../core/globalvalues/theme_color.dart';
 
 class ScreenAbout extends StatelessWidget {
-  const ScreenAbout({super.key});
-
+  ScreenAbout({super.key, required this.topBar});
+  bool topBar;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +17,7 @@ class ScreenAbout extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                userData.role == 'admin'
+                topBar
                     ? GestureDetector(
                         onTap: () {
                           Navigator.pop(context);

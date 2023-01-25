@@ -9,6 +9,7 @@ import 'package:nerve/core/services/storage_service.dart';
 import 'package:nerve/main.dart';
 import 'package:nerve/screens/dashboards/admin_dashboard.dart';
 import 'package:nerve/screens/dashboards/user_dashboard.dart';
+import 'package:nerve/screens/main/screen_about.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../core/globalvalues/sizedboxes.dart' as sb;
@@ -84,26 +85,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        if (userData.role == 'admin') {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AdminDashBoard(),
-                              ));
-                        } else if (userData.role == 'user') {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UserDashBoard(),
-                              ));
-                        } else {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RoutingService(),
-                              ));
-                        }
-                        // Navigator.pop(context);
+                        Navigator.pop(context);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -296,23 +278,54 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    await authService.signOut();
-                    // ignore: use_build_context_synchronously
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.all(40),
-                    width: double.infinity,
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: ThemeColor.ytRed,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Center(
-                      child: Text(
-                        "Sign Out",
-                        style: TextStyle(fontSize: 15, color: ThemeColor.white),
+                sb.height50,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: GestureDetector(
+                    onTap: () async {
+                      await authService.signOut();
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: ThemeColor.ytRed,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Center(
+                        child: Text(
+                          "Sign Out",
+                          style:
+                              TextStyle(fontSize: 15, color: ThemeColor.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                sb.height10,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: GestureDetector(
+                    onTap: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ScreenAbout(topBar: true),
+                          ));
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: ThemeColor.lightGrey,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Center(
+                        child: Text(
+                          "About",
+                          style:
+                              TextStyle(fontSize: 15, color: ThemeColor.black),
+                        ),
                       ),
                     ),
                   ),

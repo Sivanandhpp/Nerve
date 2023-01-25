@@ -50,7 +50,9 @@ class _ViewQueryScreenState extends State<ViewQueryScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ScreenAbout()),
+                              builder: (context) => ScreenAbout(
+                                    topBar: true,
+                                  )),
                         );
                       },
                     ),

@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const ScreenProfile(),
