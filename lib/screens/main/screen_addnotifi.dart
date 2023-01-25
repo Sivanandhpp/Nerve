@@ -206,6 +206,7 @@ class _AddNotificationState extends State<AddNotification> {
                       )),
                 ),
                 sb.height10,
+                // TEXT FIELD CONTENT
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(

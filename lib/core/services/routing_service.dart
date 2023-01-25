@@ -75,13 +75,13 @@ class RoutingService extends StatelessWidget {
     );
   }
 
-  Future<String> isAdmin(String uid) async {
-    await dbReference.child('users/$uid').once().then(
-          (value) => userData.snapshotToClass(uid, value.snapshot),
-        );
-    // globals.revision = userData.revision;
-    return userData.role;
-  }
+  // Future<String> isAdmin(String uid) async {
+  //   await dbReference.child('users/$uid').once().then(
+  //         (value) => userData.snapshotToClass(uid, value.snapshot),
+  //       );
+  //   // globals.revision = userData.revision;
+  //   return userData.role;
+  // }
 
   // Future<String> getSPDB(String uid) async {
   //   SharedPreferencesService spService = SharedPreferencesService();

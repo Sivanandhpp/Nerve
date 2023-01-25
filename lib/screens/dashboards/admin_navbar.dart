@@ -108,7 +108,7 @@ class _AdminNavBarState extends State<AdminNavBar> {
                       width: 70,
                       height: 70,
                       child: Icon(
-                        FontAwesomeIcons.circleInfo,
+                        FontAwesomeIcons.triangleExclamation,
                         size: 35.0,
                         color: about,
                       ),

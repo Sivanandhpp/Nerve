@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nerve/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/globalvalues/sizedboxes.dart' as sb;
@@ -18,6 +19,34 @@ class ScreenAbout extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
+                userData.role == 'admin'
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  left: 0, right: 10, top: 10, bottom: 10),
+                              child: const Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(
+                              "About",
+                              style: GoogleFonts.ubuntu(
+                                color: ThemeColor.black,
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container(),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   children: [
@@ -41,7 +70,7 @@ class ScreenAbout extends StatelessWidget {
                 //         ),
                 //       ),
                 //       onTap: () {
-                //         
+                //
                 //       },
                 //     ),
                 //   ],
@@ -277,10 +306,10 @@ class ScreenAbout extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 launchUrl(
-                                  mode: LaunchMode.externalApplication,
-                                  Uri(
-                                    scheme: "https",
-                                    host: "amalrajkp18.github.io"));
+                                    mode: LaunchMode.externalApplication,
+                                    Uri(
+                                        scheme: "https",
+                                        host: "amalrajkp18.github.io"));
                               },
                               child: ClipRRect(
                                 borderRadius:
@@ -362,10 +391,10 @@ class ScreenAbout extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 launchUrl(
-                                  mode: LaunchMode.externalApplication,
-                                  Uri(
-                                    scheme: "https",
-                                    host: "sivanandhpp.github.io"));
+                                    mode: LaunchMode.externalApplication,
+                                    Uri(
+                                        scheme: "https",
+                                        host: "sivanandhpp.github.io"));
                               },
                               child: ClipRRect(
                                 borderRadius:

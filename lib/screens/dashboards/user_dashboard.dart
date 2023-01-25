@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nerve/screens/main/screen_query.dart';
 import 'user_navbar.dart' as user;
 import '../main/screen_about.dart';
 import '../main/screen_notifications.dart';
 import '../main/screen_home.dart';
-import '../main/screen_upload.dart';
 
 class UserDashBoard extends StatelessWidget {
   UserDashBoard({Key? key}) : super(key: key);
   final _pages = [
     const HomeScreen(),
-    const ScreenUpload(),
+    const QueryScreen(),
     const ScreenNotification(),
     const ScreenAbout(),
   ];

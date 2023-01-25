@@ -64,4 +64,27 @@ class DatabaseService {
       errHandler.fromErrorCode(e, context);
     }
   }
+
+  Future<void> addQuery(
+      String subject, String query, BuildContext context) async {
+    try {
+      DateTime now = DateTime.now();
+      String queryRef =
+          "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}";
+      String time = "${now.hour}:${now.minute}:${now.second}";
+      String date = "${now.day}/${now.month}/${now.year}";
+      dbReference.child('queries/$queryRef').set({
+        'subject': subject,
+        'query': query,
+        'uid': userData.userid,
+        'name': userData.name,
+        'batch': userData.batch,
+        'phone': userData.phoneNo,
+        'date': date,
+        'time': time,
+      });
+    } catch (e) {
+      errHandler.fromErrorCode(e, context);
+    }
+  }
 }

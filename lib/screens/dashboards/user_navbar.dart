@@ -14,8 +14,8 @@ class UserNavBar extends StatefulWidget {
 
 class _UserNavBarState extends State<UserNavBar> {
   var home = ThemeColor.primary;
-  var upload = ThemeColor.black;
-  var gpaCal = ThemeColor.black;
+  var query = ThemeColor.black;
+  var notification = ThemeColor.black;
   var about = ThemeColor.black;
 
   @override
@@ -40,8 +40,8 @@ class _UserNavBarState extends State<UserNavBar> {
                       indexChangeNotifier.value = 0;
                       setState(() {
                         home = ThemeColor.primary;
-                        upload = ThemeColor.black;
-                        gpaCal = ThemeColor.black;
+                        query = ThemeColor.black;
+                        notification = ThemeColor.black;
                         about = ThemeColor.black;
                       });
                     },
@@ -55,33 +55,33 @@ class _UserNavBarState extends State<UserNavBar> {
                       ),
                     ),
                   ),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     indexChangeNotifier.value = 1;
-                  //     setState(() {
-                  //       home = ThemeColor.black;
-                  //       upload = ThemeColor.primary;
-                  //       gpaCal = ThemeColor.black;
-                  //       about = ThemeColor.black;
-                  //     });
-                  //   },
-                  //   child: SizedBox(
-                  //     width: 70,
-                  //     height: 70,
-                  //     child: Icon(
-                  //       FontAwesomeIcons.upload,
-                  //       size: 35.0,
-                  //       color: upload,
-                  //     ),
-                  //   ),
-                  // ),
+                  GestureDetector(
+                    onTap: () {
+                      indexChangeNotifier.value = 1;
+                      setState(() {
+                        home = ThemeColor.black;
+                        query = ThemeColor.primary;
+                        notification = ThemeColor.black;
+                        about = ThemeColor.black;
+                      });
+                    },
+                    child: SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: Icon(
+                        FontAwesomeIcons.triangleExclamation,
+                        size: 35.0,
+                        color: query,
+                      ),
+                    ),
+                  ),
                   GestureDetector(
                     onTap: () {
                       indexChangeNotifier.value = 2;
                       setState(() {
                         home = ThemeColor.black;
-                        upload = ThemeColor.black;
-                        gpaCal = ThemeColor.primary;
+                        query = ThemeColor.black;
+                        notification = ThemeColor.primary;
                         about = ThemeColor.black;
                       });
                     },
@@ -91,7 +91,7 @@ class _UserNavBarState extends State<UserNavBar> {
                       child: Icon(
                         FontAwesomeIcons.solidCompass,
                         size: 35.0,
-                        color: gpaCal,
+                        color: notification,
                       ),
                     ),
                   ),
@@ -100,8 +100,8 @@ class _UserNavBarState extends State<UserNavBar> {
                       indexChangeNotifier.value = 3;
                       setState(() {
                         home = ThemeColor.black;
-                        upload = ThemeColor.black;
-                        gpaCal = ThemeColor.black;
+                        query = ThemeColor.black;
+                        notification = ThemeColor.black;
                         about = ThemeColor.primary;
                       });
                     },
@@ -153,7 +153,7 @@ class _UserNavBarState extends State<UserNavBar> {
 //             ),
 //             BottomNavigationBarItem(
 //               icon: Icon(
-//                 Icons.drive_folder_upload_outlined,
+//                 Icons.drive_folder_query_outlined,
 //                 size: 30,
 //               ),
 //               label: 'About',
