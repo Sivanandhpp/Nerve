@@ -1,11 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nerve/core/services/auth_service.dart';
+import 'package:nerve/core/services/routing_service.dart';
 import 'package:nerve/core/services/storage_service.dart';
 import 'package:nerve/main.dart';
+import 'package:nerve/screens/dashboards/admin_dashboard.dart';
+import 'package:nerve/screens/dashboards/user_dashboard.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../core/globalvalues/sizedboxes.dart' as sb;
 import '../../core/globalvalues/theme_color.dart';
 
@@ -40,18 +45,50 @@ class _ScreenProfileState extends State<ScreenProfile> {
         child: ClipOval(
           child: Image(
             image: AssetImage('assets/images/avatar.jpg'),
+            fit: BoxFit.fill,
           ),
         ),
       );
     }
     return CircleAvatar(
-      radius: 70,
-      backgroundColor: Colors.white,
+      radius: 75,
+      backgroundColor: ThemeColor.white,
       child: ClipOval(
-        child: Image(
-          image: NetworkImage(userData.profile),
-          fit: BoxFit.fill,
+        child: CachedNetworkImage(
+          imageUrl: userData.profile,
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          placeholder: (context, url) => const CircularProgressIndicator(),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
+
+        // Image(
+        //   height: 140,
+        //   width: 140,
+        //   loadingBuilder: (BuildContext context, Widget child,
+        //       ImageChunkEvent? loadingProgress) {
+        //     if (loadingProgress == null) {
+        //       return child;
+        //     }
+        //     return Center(
+        //       child: CircularProgressIndicator(
+        //         color: ThemeColor.primary,
+        //         value: loadingProgress.expectedTotalBytes != null
+        //             ? loadingProgress.cumulativeBytesLoaded /
+        //                 loadingProgress.expectedTotalBytes!
+        //             : null,
+        //       ),
+        //     );
+        //   },
+        //   image: NetworkImage(userData.profile),
+        //   fit: BoxFit.fill,
+        // ),
       ),
     );
   }
@@ -66,36 +103,98 @@ class _ScreenProfileState extends State<ScreenProfile> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (userData.role == 'admin') {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AdminDashBoard(),
+                              ));
+                        } else if (userData.role == 'user') {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UserDashBoard(),
+                              ));
+                        } else {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RoutingService(),
+                              ));
+                        }
+                        // Navigator.pop(context);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.only(
-                                left: 0, right: 10, top: 10, bottom: 10),
-                            child: const Icon(
-                              Icons.arrow_back_ios_new,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            "Profile",
-                            style: GoogleFonts.ubuntu(
-                              color: ThemeColor.black,
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(
+                                    left: 0, right: 10, top: 10, bottom: 10),
+                                child: const Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                "Profile",
+                                style: GoogleFonts.ubuntu(
+                                  color: ThemeColor.black,
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    userData.role == 'admin'
+                        ? Shimmer.fromColors(
+                            direction: ShimmerDirection.ltr,
+                            baseColor: ThemeColor.primary,
+                            highlightColor: ThemeColor.instaPurpleRed,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 3),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: ThemeColor.primary, width: 2),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20))),
+                              child: const Text(
+                                "Admin",
+                                style: TextStyle(
+                                    color: ThemeColor.primary,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          )
+                        : Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: ThemeColor.black, width: 2),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
+                            child: const Text(
+                              "User/Student",
+                              style: TextStyle(
+                                  color: ThemeColor.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                  ],
                 ),
                 sb.height20,
                 GestureDetector(
@@ -112,7 +211,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     } else {
                       setState(() {
                         isLoading = true;
-                        selectedFileName = results!.files.single.name;
+                        selectedFileName = results.files.single.name;
                         selectedFilePath = results.files.single.path!;
                         String fileName =
                             "${userData.phoneNo}_${userData.name}_${selectedFileName}";

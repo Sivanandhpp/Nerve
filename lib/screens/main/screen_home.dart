@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nerve/main.dart';
 import 'package:nerve/screens/main/screen_profile.dart';
@@ -51,41 +51,54 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     InkWell(
                       child: userData.profile == 'null'
-                          ? Container(
-                              padding: const EdgeInsets.all(12),
-                              child: const CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.white,
-                                child: ClipOval(
-                                  child: Image(
-                                    image:
-                                        AssetImage("assets/images/avatar.jpg"),
-                                    fit: BoxFit.fill,
-                                  ),
+                          ? const CircleAvatar(
+                              radius: 30,
+                              backgroundColor: ThemeColor.white,
+                              child: ClipOval(
+                                child: Image(
+                                  height: 50,
+                                  width: 50,
+                                  image: AssetImage("assets/images/avatar.jpg"),
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             )
-                          : Container(
-                              padding: const EdgeInsets.all(12),
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.white,
-                                child: ClipOval(
-                                  child: Image(
-                                    image: NetworkImage(userData.profile),
-                                    fit: BoxFit.fill,
+                          : CircleAvatar(
+                              radius: 30,
+                              backgroundColor: ThemeColor.white,
+                              child: ClipOval(
+                                child: CachedNetworkImage(
+                                  imageUrl: userData.profile,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                 ),
                               ),
                             ),
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ScreenProfile()),
+                            builder: (context) => const ScreenProfile(),
+                          ),
                         );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const ScreenProfile()),
+                        // );
                       },
-                    )
+                    ),
                   ],
                 ),
                 sb.height20,

@@ -53,7 +53,7 @@ class HomeShimmer extends StatelessWidget {
                             width: 50,
                             decoration: BoxDecoration(
                               color: ThemeColor.white,
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(30),
                             ),
                           )
                         ],

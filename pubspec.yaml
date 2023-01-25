@@ -9,7 +9,6 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  animated_segmented_tab_control: ^1.0.1
   google_fonts: ^3.0.1
   font_awesome_flutter: ^10.3.0
   syncfusion_flutter_pdfviewer: ^20.4.41
@@ -24,6 +23,7 @@ dependencies:
   numberpicker: ^2.1.1
   shimmer: ^2.0.0
   firebase_messaging: ^14.2.1
+  cached_network_image: ^3.2.3
   
 
 dev_dependencies:
