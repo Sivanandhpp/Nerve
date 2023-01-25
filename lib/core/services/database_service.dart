@@ -23,7 +23,8 @@ class DatabaseService {
       'password': password,
       'batch': batch,
       'revision': revision,
-      'role': role
+      'role': role,
+      'profile': 'null'
     });
   }
 
@@ -36,8 +37,8 @@ class DatabaseService {
   Future<void> addNotification(String title, String content, String url,
       String fileExt, DateTime now, BuildContext context) async {
     try {
-
-      String notiRef = "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}";
+      String notiRef =
+          "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}";
       String time = "${now.hour}:${now.minute}:${now.second}";
       String date = "${now.day}/${now.month}/${now.year}";
 
@@ -50,6 +51,15 @@ class DatabaseService {
         'url': url,
         'extension': fileExt
       });
+    } catch (e) {
+      errHandler.fromErrorCode(e, context);
+    }
+  }
+
+  Future<void> addProfilePic(
+      String url, String uid, BuildContext context) async {
+    try {
+      dbReference.child('users/$uid').update({'profile': url});
     } catch (e) {
       errHandler.fromErrorCode(e, context);
     }
