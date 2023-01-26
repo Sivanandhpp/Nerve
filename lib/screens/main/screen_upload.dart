@@ -381,6 +381,9 @@ class _ScreenUploadState extends State<ScreenUpload> {
                     if (selectedFilePath == "null") {
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('No File Selected')));
+                    } else if (selectedFileName.length < 1) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Add a name to file")));
                     } else if (dropdownRevision == "Select revision") {
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text("Select revision")));

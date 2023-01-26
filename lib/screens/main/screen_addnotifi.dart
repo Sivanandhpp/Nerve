@@ -245,10 +245,10 @@ class _AddNotificationState extends State<AddNotification> {
                 GestureDetector(
                   onTap: () {
                     DateTime now = DateTime.now();
-                    if (title == "Add title") {
+                    if (title == "Add title"  || title.length < 3) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Add a title before submitting")));
-                    } else if (content == "Add content") {
+                    } else if (content == "Add content" || content.length < 3) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Add a content before submitting")));
                     } else if (selectedFilePath == "null") {

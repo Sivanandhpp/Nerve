@@ -24,7 +24,8 @@ class DatabaseService {
       'batch': batch,
       'revision': revision,
       'role': role,
-      'profile': 'null'
+      'profile': 'null',
+      'status': 'active'
     });
   }
 
@@ -44,8 +45,10 @@ class DatabaseService {
     try {
       String notiRef =
           "${now.year}${now.month.toString().padLeft(2, "0")}${now.day.toString().padLeft(2, "0")}${now.hour.toString().padLeft(2, "0")}${now.minute.toString().padLeft(2, "0")}${now.second.toString().padLeft(2, "0")}";
-      String time = "${now.hour.toString().padLeft(2,"0")}:${now.minute.toString().padLeft(2,"0")}:${now.second.toString().padLeft(2,"0")}";
-      String date = "${now.day.toString().padLeft(2,"0")}/${now.month.toString().padLeft(2,"0")}/${now.year}";
+      String time =
+          "${now.hour.toString().padLeft(2, "0")}:${now.minute.toString().padLeft(2, "0")}:${now.second.toString().padLeft(2, "0")}";
+      String date =
+          "${now.day.toString().padLeft(2, "0")}/${now.month.toString().padLeft(2, "0")}/${now.year}";
 
       final notificationReferance = dbReference.child('notifications/$notiRef');
       notificationReferance.set({
@@ -67,8 +70,10 @@ class DatabaseService {
       DateTime now = DateTime.now();
       String queryRef =
           "${now.year}${now.month.toString().padLeft(2, "0")}${now.day.toString().padLeft(2, "0")}${now.hour.toString().padLeft(2, "0")}${now.minute.toString().padLeft(2, "0")}${now.second.toString().padLeft(2, "0")}";
-      String time = "${now.hour.toString().padLeft(2,"0")}:${now.minute.toString().padLeft(2,"0")}:${now.second.toString().padLeft(2,"0")}";
-      String date = "${now.day.toString().padLeft(2,"0")}/${now.month.toString().padLeft(2,"0")}/${now.year}";
+      String time =
+          "${now.hour.toString().padLeft(2, "0")}:${now.minute.toString().padLeft(2, "0")}:${now.second.toString().padLeft(2, "0")}";
+      String date =
+          "${now.day.toString().padLeft(2, "0")}/${now.month.toString().padLeft(2, "0")}/${now.year}";
       dbReference.child('queries/$queryRef').set({
         'subject': subject,
         'query': query,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nerve/core/services/database_service.dart';
+import 'package:nerve/main.dart';
 import '../../core/globalvalues/sizedboxes.dart' as sb;
 import 'package:google_fonts/google_fonts.dart';
 
@@ -38,21 +39,6 @@ class _QueryScreenState extends State<QueryScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // InkWell(
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //         color: ThemeColor.lightGrey,
-                  //         borderRadius: BorderRadius.circular(12)),
-                  //     padding: const EdgeInsets.all(12),
-                  //     child: const Icon(
-                  //       Icons.verified_user,
-                  //       color: Colors.white,
-                  //     ),
-                  //   ),
-                  //   onTap: () async {
-                  //     await spInstance.setBool('seen', false);
-                  //   },
-                  // )
                 ],
               ),
               sb.height20,
@@ -144,26 +130,55 @@ class _QueryScreenState extends State<QueryScreen> {
                 ),
               ),
               sb.height20,
-              GestureDetector(
-                onTap: () {
-                  dbService.addQuery(subject, query, context).then((value) =>
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Query submitted sucessfully'))));
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 60,
-                  decoration: BoxDecoration(
-                      color: ThemeColor.primary,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Center(
-                    child: Text(
-                      "Submit Query",
-                      style: GoogleFonts.ubuntu(color: ThemeColor.white),
+              userData.status == 'diabled'
+                  ? GestureDetector(
+                      onTap: () {
+                        if (subject == "Subject" || subject.length < 3) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text("Add a subject before submitting")));
+                        } else if (query == "Write your query" ||
+                            query.length < 3) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text("Write a query before submitting")));
+                        } else {
+                          dbService.addQuery(subject, query, context).then(
+                              (value) => ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                      content: Text(
+                                          'Query submitted sucessfully'))));
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 60,
+                        decoration: BoxDecoration(
+                            color: ThemeColor.primary,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Center(
+                          child: Text(
+                            "Submit Query",
+                            style: GoogleFonts.ubuntu(color: ThemeColor.white),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      width: double.infinity,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: ThemeColor.ytRed,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Center(
+                        child: Text(
+                          "Account disabled",
+                          style: GoogleFonts.ubuntu(color: ThemeColor.white),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
               sb.height20,
               Text("Queries will be reviewed by faculties.",
                   style: GoogleFonts.ubuntu(

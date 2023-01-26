@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nerve/screens/main/screen_students.dart';
 import 'package:nerve/screens/main/screen_viewquery.dart';
 import 'admin_navbar.dart' as admin;
 import '../main/screen_notifications.dart';
@@ -11,7 +12,7 @@ class AdminDashBoard extends StatelessWidget {
     const HomeScreen(),
     const ScreenNotification(),
     const ScreenUpload(),
-    const ViewQueryScreen(),
+    ViewStudents(),
   ];
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,8 @@ class UserData {
       revision,
       role,
       userid,
-      profile;
+      profile,
+      status;
   SharedPreferencesService spService = SharedPreferencesService();
   DatabaseService dbService = DatabaseService();
 
@@ -29,6 +30,7 @@ class UserData {
     revision = snapshot.child('revision').value;
     role = snapshot.child('role').value;
     profile = snapshot.child('profile').value;
+    status = snapshot.child('status').value;
     // spService.setSharedprefUser(
     //     uid, name, email, phoneNo, password, batch, revision, role);
   }
