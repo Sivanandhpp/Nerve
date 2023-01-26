@@ -13,8 +13,8 @@ class AdminNavBar extends StatefulWidget {
 
 class _AdminNavBarState extends State<AdminNavBar> {
   var home = ThemeColor.primary;
+  var notification = ThemeColor.black;
   var upload = ThemeColor.black;
-  var gpaCal = ThemeColor.black;
   var about = ThemeColor.black;
 
   @override
@@ -39,8 +39,8 @@ class _AdminNavBarState extends State<AdminNavBar> {
                       indexChangeNotifier.value = 0;
                       setState(() {
                         home = ThemeColor.primary;
+                        notification = ThemeColor.black;
                         upload = ThemeColor.black;
-                        gpaCal = ThemeColor.black;
                         about = ThemeColor.black;
                       });
                     },
@@ -59,8 +59,28 @@ class _AdminNavBarState extends State<AdminNavBar> {
                       indexChangeNotifier.value = 1;
                       setState(() {
                         home = ThemeColor.black;
+                        upload = ThemeColor.black;
+                        notification = ThemeColor.primary;
+                        about = ThemeColor.black;
+                      });
+                    },
+                    child: SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: Icon(
+                        FontAwesomeIcons.solidCompass,
+                        size: 35.0,
+                        color: notification,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      indexChangeNotifier.value = 2;
+                      setState(() {
+                        home = ThemeColor.black;
+                        notification = ThemeColor.black;
                         upload = ThemeColor.primary;
-                        gpaCal = ThemeColor.black;
                         about = ThemeColor.black;
                       });
                     },
@@ -76,31 +96,11 @@ class _AdminNavBarState extends State<AdminNavBar> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      indexChangeNotifier.value = 2;
-                      setState(() {
-                        home = ThemeColor.black;
-                        upload = ThemeColor.black;
-                        gpaCal = ThemeColor.primary;
-                        about = ThemeColor.black;
-                      });
-                    },
-                    child: SizedBox(
-                      width: 70,
-                      height: 70,
-                      child: Icon(
-                        FontAwesomeIcons.solidCompass,
-                        size: 35.0,
-                        color: gpaCal,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
                       indexChangeNotifier.value = 3;
                       setState(() {
                         home = ThemeColor.black;
+                        notification = ThemeColor.black;
                         upload = ThemeColor.black;
-                        gpaCal = ThemeColor.black;
                         about = ThemeColor.primary;
                       });
                     },

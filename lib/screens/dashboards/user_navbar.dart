@@ -14,8 +14,8 @@ class UserNavBar extends StatefulWidget {
 
 class _UserNavBarState extends State<UserNavBar> {
   var home = ThemeColor.primary;
-  var query = ThemeColor.black;
   var notification = ThemeColor.black;
+  var query = ThemeColor.black;
   var about = ThemeColor.black;
 
   @override
@@ -40,8 +40,8 @@ class _UserNavBarState extends State<UserNavBar> {
                       indexChangeNotifier.value = 0;
                       setState(() {
                         home = ThemeColor.primary;
-                        query = ThemeColor.black;
                         notification = ThemeColor.black;
+                        query = ThemeColor.black;
                         about = ThemeColor.black;
                       });
                     },
@@ -60,28 +60,8 @@ class _UserNavBarState extends State<UserNavBar> {
                       indexChangeNotifier.value = 1;
                       setState(() {
                         home = ThemeColor.black;
-                        query = ThemeColor.primary;
-                        notification = ThemeColor.black;
-                        about = ThemeColor.black;
-                      });
-                    },
-                    child: SizedBox(
-                      width: 70,
-                      height: 70,
-                      child: Icon(
-                        FontAwesomeIcons.triangleExclamation,
-                        size: 35.0,
-                        color: query,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      indexChangeNotifier.value = 2;
-                      setState(() {
-                        home = ThemeColor.black;
-                        query = ThemeColor.black;
                         notification = ThemeColor.primary;
+                        query = ThemeColor.black;
                         about = ThemeColor.black;
                       });
                     },
@@ -97,11 +77,31 @@ class _UserNavBarState extends State<UserNavBar> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      indexChangeNotifier.value = 2;
+                      setState(() {
+                        home = ThemeColor.black;
+                        notification = ThemeColor.black;
+                        query = ThemeColor.primary;
+                        about = ThemeColor.black;
+                      });
+                    },
+                    child: SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: Icon(
+                        FontAwesomeIcons.triangleExclamation,
+                        size: 35.0,
+                        color: query,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
                       indexChangeNotifier.value = 3;
                       setState(() {
                         home = ThemeColor.black;
-                        query = ThemeColor.black;
                         notification = ThemeColor.black;
+                        query = ThemeColor.black;
                         about = ThemeColor.primary;
                       });
                     },

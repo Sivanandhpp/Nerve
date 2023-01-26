@@ -9,8 +9,8 @@ class UserDashBoard extends StatelessWidget {
   UserDashBoard({Key? key}) : super(key: key);
   final _pages = [
     const HomeScreen(),
-    const QueryScreen(),
     const ScreenNotification(),
+    const QueryScreen(),
     ScreenAbout(topBar: false),
   ];
   @override

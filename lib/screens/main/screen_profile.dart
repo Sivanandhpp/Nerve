@@ -85,7 +85,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     GestureDetector(
                       onTap: () {
                         if (updatedProfile) {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => RoutingService(),

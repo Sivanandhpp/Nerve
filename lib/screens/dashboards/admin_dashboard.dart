@@ -9,8 +9,8 @@ class AdminDashBoard extends StatelessWidget {
   AdminDashBoard({Key? key}) : super(key: key);
   final _pages = [
     const HomeScreen(),
-    const ScreenUpload(),
     const ScreenNotification(),
+    const ScreenUpload(),
     const ViewQueryScreen(),
   ];
   @override
