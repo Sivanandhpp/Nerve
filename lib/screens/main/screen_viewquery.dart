@@ -27,7 +27,7 @@ class _ViewQueryScreenState extends State<ViewQueryScreen> {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       'Student Queries',
@@ -37,28 +37,9 @@ class _ViewQueryScreenState extends State<ViewQueryScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    InkWell(
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        child: const Icon(
-                          FontAwesomeIcons.circleInfo,
-                          size: 35,
-                          color: ThemeColor.black,
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ScreenAbout(
-                                    topBar: true,
-                                  )),
-                        );
-                      },
-                    ),
                   ],
                 ),
-                sb.height20,
+                sb.height10,
                 FirebaseAnimatedList(
                   query: dbReference.child("queries"),
                   physics: const NeverScrollableScrollPhysics(),
@@ -89,62 +70,60 @@ class _ViewQueryScreenState extends State<ViewQueryScreen> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           padding: const EdgeInsets.all(20.0),
-                          child: Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Name: ${snapshot.child('name').value.toString()}",
-                                      style: GoogleFonts.ubuntu(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                      ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Name: ${snapshot.child('name').value.toString()}",
+                                    style: GoogleFonts.ubuntu(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
                                     ),
-                                    Text(
-                                      "Batch: ${snapshot.child('batch').value.toString()}",
-                                      style: GoogleFonts.ubuntu(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                sb.height10,
-                                Text(
-                                  "Subject: ${snapshot.child('subject').value.toString()}",
-                                  style: GoogleFonts.ubuntu(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
                                   ),
-                                ),
-                                sb.height10,
-                                Text(
-                                  snapshot.child('query').value.toString(),
-                                  style: GoogleFonts.ubuntu(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 1,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      snapshot.child('date').value.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                      ),
+                                  Text(
+                                    "Batch: ${snapshot.child('batch').value.toString()}",
+                                    style: GoogleFonts.ubuntu(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 15,
                                     ),
-                                  ],
+                                  ),
+                                ],
+                              ),
+                              sb.height10,
+                              Text(
+                                "Subject: ${snapshot.child('subject').value.toString()}",
+                                style: GoogleFonts.ubuntu(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
                                 ),
-                              ],
-                            ),
+                              ),
+                              sb.height10,
+                              Text(
+                                snapshot.child('query').value.toString(),
+                                style: GoogleFonts.ubuntu(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 1,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    snapshot.child('date').value.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ],

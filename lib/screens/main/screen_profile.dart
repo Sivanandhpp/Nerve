@@ -7,8 +7,6 @@ import 'package:nerve/core/services/auth_service.dart';
 import 'package:nerve/core/services/routing_service.dart';
 import 'package:nerve/core/services/storage_service.dart';
 import 'package:nerve/main.dart';
-import 'package:nerve/screens/dashboards/admin_dashboard.dart';
-import 'package:nerve/screens/dashboards/user_dashboard.dart';
 import 'package:nerve/screens/main/screen_about.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -24,6 +22,7 @@ class ScreenProfile extends StatefulWidget {
 
 class _ScreenProfileState extends State<ScreenProfile> {
   bool isLoading = false;
+  bool updatedProfile = false;
   String profileUrl = 'null';
   String selectedFileName = '';
   String selectedFilePath = '';
@@ -85,7 +84,15 @@ class _ScreenProfileState extends State<ScreenProfile> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        if (updatedProfile) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RoutingService(),
+                              ));
+                        } else {
+                          Navigator.pop(context);
+                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,13 +178,15 @@ class _ScreenProfileState extends State<ScreenProfile> {
                         isLoading = true;
                         selectedFileName = results.files.single.name;
                         selectedFilePath = results.files.single.path!;
-                        String fileName = "${userData.userid}_${userData.name}";
+                        String fileName =
+                            "${userData.userid}_${userData.name}_$selectedFileName";
                         storage
                             .uploadProfileImg(
                                 selectedFilePath, fileName, context)
                             .then((value) {
                           setState(() {
                             isLoading = false;
+                            updatedProfile = true;
                           });
                         });
                       });
