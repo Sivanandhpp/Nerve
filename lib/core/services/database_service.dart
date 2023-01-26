@@ -28,19 +28,24 @@ class DatabaseService {
     });
   }
 
-  setDatabaseValue(String key, String value, String uid) {
-    final userReferance = dbReference.child('users/$uid');
+  Future<void> updateDatabaseUser(
+      String key, String value, String uid, BuildContext context) async {
+    try {
+      final userReferance = dbReference.child('users/$uid');
 
-    userReferance.update({key: value});
+      userReferance.update({key: value});
+    } catch (e) {
+      errHandler.fromErrorCode(e, context);
+    }
   }
 
   Future<void> addNotification(String title, String content, String url,
       String fileExt, DateTime now, BuildContext context) async {
     try {
       String notiRef =
-          "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}";
-      String time = "${now.hour}:${now.minute}:${now.second}";
-      String date = "${now.day}/${now.month}/${now.year}";
+          "${now.year}${now.month.toString().padLeft(2, "0")}${now.day.toString().padLeft(2, "0")}${now.hour.toString().padLeft(2, "0")}${now.minute.toString().padLeft(2, "0")}${now.second.toString().padLeft(2, "0")}";
+      String time = "${now.hour.toString().padLeft(2,"0")}:${now.minute.toString().padLeft(2,"0")}:${now.second.toString().padLeft(2,"0")}";
+      String date = "${now.day.toString().padLeft(2,"0")}/${now.month.toString().padLeft(2,"0")}/${now.year}";
 
       final notificationReferance = dbReference.child('notifications/$notiRef');
       notificationReferance.set({
@@ -56,31 +61,14 @@ class DatabaseService {
     }
   }
 
-  Future<void> addProfilePic(
-      String url, String uid, BuildContext context) async {
-    try {
-      dbReference.child('users/$uid').update({'profile': url});
-    } catch (e) {
-      errHandler.fromErrorCode(e, context);
-    }
-  }
-  // ADMINS ONLY REVISION CHANGE
- Future<void> updateRevision(
-      String updatedRevision, String uid, BuildContext context) async {
-    try {
-      dbReference.child('users/$uid').update({'revision': updatedRevision});
-    } catch (e) {
-      errHandler.fromErrorCode(e, context);
-    }
-  }
   Future<void> addQuery(
       String subject, String query, BuildContext context) async {
     try {
       DateTime now = DateTime.now();
       String queryRef =
-          "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}";
-      String time = "${now.hour}:${now.minute}:${now.second}";
-      String date = "${now.day}/${now.month}/${now.year}";
+          "${now.year}${now.month.toString().padLeft(2, "0")}${now.day.toString().padLeft(2, "0")}${now.hour.toString().padLeft(2, "0")}${now.minute.toString().padLeft(2, "0")}${now.second.toString().padLeft(2, "0")}";
+      String time = "${now.hour.toString().padLeft(2,"0")}:${now.minute.toString().padLeft(2,"0")}:${now.second.toString().padLeft(2,"0")}";
+      String date = "${now.day.toString().padLeft(2,"0")}/${now.month.toString().padLeft(2,"0")}/${now.year}";
       dbReference.child('queries/$queryRef').set({
         'subject': subject,
         'query': query,

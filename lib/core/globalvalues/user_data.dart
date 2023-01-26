@@ -17,7 +17,7 @@ class UserData {
 
   updateRevision(String updatedRevision, BuildContext context) {
     revision = updatedRevision;
-    dbService.updateRevision(updatedRevision, userid, context);
+    dbService.updateDatabaseUser("revision", updatedRevision, userid, context);
   }
 
   snapshotToClass(uid, snapshot) {

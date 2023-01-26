@@ -89,7 +89,7 @@ class _UserNavBarState extends State<UserNavBar> {
                       width: 70,
                       height: 70,
                       child: Icon(
-                        FontAwesomeIcons.triangleExclamation,
+                        FontAwesomeIcons.solidEnvelope,
                         size: 35.0,
                         color: query,
                       ),
@@ -109,7 +109,7 @@ class _UserNavBarState extends State<UserNavBar> {
                       width: 70,
                       height: 70,
                       child: Icon(
-                        FontAwesomeIcons.circleInfo,
+                        FontAwesomeIcons.ggCircle,
                         size: 35.0,
                         color: about,
                       ),

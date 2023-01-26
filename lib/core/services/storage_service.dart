@@ -83,7 +83,7 @@ class Storage {
     userData.profile = url;
     try {
       await storage.ref('profile/$fileNamePursed').putFile(file).then((value) {
-        dbService.addProfilePic(url, userData.userid, context);
+        dbService.updateDatabaseUser('profile',url, userData.userid, context);
       });
     } on firebase_core.FirebaseException catch (e) {
       errHandler.fromErrorCode(e, context);
