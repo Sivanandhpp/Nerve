@@ -77,7 +77,7 @@ class _ScreenNotificationState extends State<ScreenNotification> {
               snapshot.child('title').value.toString(),
               style: GoogleFonts.ubuntu(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 15,
               ),
             ),
           ),
@@ -98,7 +98,7 @@ class _ScreenNotificationState extends State<ScreenNotification> {
       snapshot.child('title').value.toString(),
       style: GoogleFonts.ubuntu(
         fontWeight: FontWeight.bold,
-        fontSize: 20,
+        fontSize: 15,
       ),
     );
   }
@@ -166,7 +166,7 @@ class _ScreenNotificationState extends State<ScreenNotification> {
             child: Column(
               children: [
                 headWithPower(),
-                sb.height10,
+                // sb.height10,
                 FirebaseAnimatedList(
                   query: dbReference.child("notifications"),
                   physics: const NeverScrollableScrollPhysics(),
@@ -207,7 +207,9 @@ class _ScreenNotificationState extends State<ScreenNotification> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     titleWithDel(snapshot),
-                                    sb.height10,
+                                    const SizedBox(
+                                      height: 2,
+                                    ),
                                     Text(
                                       snapshot
                                           .child('content')
@@ -215,11 +217,11 @@ class _ScreenNotificationState extends State<ScreenNotification> {
                                           .toString(),
                                       style: GoogleFonts.ubuntu(
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 15,
+                                        fontSize: 13,
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 1,
+                                      height: 2,
                                     ),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,

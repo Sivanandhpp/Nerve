@@ -80,9 +80,9 @@ class _ViewQueryScreenState extends State<ViewQueryScreen> {
                                   Text(
                                     "Name: ${snapshot.child('name').value.toString()}",
                                     style: GoogleFonts.ubuntu(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: ThemeColor.primary),
                                   ),
                                   Text(
                                     "Batch: ${snapshot.child('batch').value.toString()}",
