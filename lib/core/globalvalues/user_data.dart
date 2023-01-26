@@ -44,6 +44,8 @@ class UserData {
       String setbatch,
       String setrevision,
       String setrole,
+      String setprofile,
+      String setstatus,
       bool setData) {
     userid = uid;
     name = setname;
@@ -53,6 +55,8 @@ class UserData {
     batch = setbatch;
     revision = setrevision;
     role = setrole;
+    profile = setprofile;
+    status = setstatus;
 
     if (setData) {
       //SET DATA TO SHARED PREFERANCES WHILE SIGN UP
@@ -61,7 +65,7 @@ class UserData {
 
       //SET DATA TO REALTIME DATABASE WHILE SIGN UP
       dbService.setDatabaseUser(uid, setname, setemail, setphoneNo, setpassword,
-          setbatch, setrevision, setrole);
+          setbatch, setrevision, setrole, profile, status);
     }
   }
 }

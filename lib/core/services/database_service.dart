@@ -13,7 +13,7 @@ class DatabaseService {
   }
 
   setDatabaseUser(String uid, String name, String email, String phoneNo,
-      String password, String batch, String revision, String role) {
+      String password, String batch, String revision, String role, String profile, String status) {
     final userReferance = dbReference.child('users/$uid');
 
     userReferance.set({
