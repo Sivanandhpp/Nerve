@@ -68,7 +68,7 @@ class _AdminNavBarState extends State<AdminNavBar> {
                       width: 70,
                       height: 70,
                       child: Icon(
-                        FontAwesomeIcons.solidCompass,
+                        FontAwesomeIcons.solidBell,
                         size: 35.0,
                         color: notification,
                       ),
@@ -88,7 +88,7 @@ class _AdminNavBarState extends State<AdminNavBar> {
                       width: 70,
                       height: 70,
                       child: Icon(
-                        FontAwesomeIcons.upload,
+                        FontAwesomeIcons.cloudArrowUp,
                         size: 35.0,
                         color: upload,
                       ),
@@ -108,7 +108,7 @@ class _AdminNavBarState extends State<AdminNavBar> {
                       width: 70,
                       height: 70,
                       child: Icon(
-                        FontAwesomeIcons.triangleExclamation,
+                        FontAwesomeIcons.solidMessage,
                         size: 35.0,
                         color: about,
                       ),

@@ -14,7 +14,7 @@ import 'core/globalvalues/theme_color.dart';
 late SharedPreferences spInstance;
 late DatabaseReference dbReference;
 late FirebaseMessaging fmInstance;
-final userData = Post();
+final userData = UserData();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +39,10 @@ void main() async {
       systemNavigationBarIconBrightness: Brightness.dark,
       statusBarColor: ThemeColor.scaffoldBgColor,
       statusBarIconBrightness: Brightness.dark));
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 }
 
 class MyApp extends StatelessWidget {

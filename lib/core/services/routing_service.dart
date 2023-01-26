@@ -25,15 +25,11 @@ class RoutingService extends StatelessWidget {
       builder: (_, AsyncSnapshot<User?> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final User? user = snapshot.data;
-          // if (user?.username != null) {
-          //   globals.userName = user!.username.toString();
-          // }
           if (user != null) {
-            userData.uidToClass(user.uid);
-
-            return FutureBuilder<Post>(
+            userData.userid = user.uid;
+            return FutureBuilder<UserData>(
               future: dbService.getDatabaseUser(user.uid),
-              builder: (BuildContext context, AsyncSnapshot<Post> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.data!.role == "admin") {
                     //Admin Dashboard
@@ -44,9 +40,6 @@ class RoutingService extends StatelessWidget {
                   }
                 }
                 return const HomeShimmer();
-                // return const LoadingScreen(
-                //   loadingTitle: "Fetching user...",
-                // );
               },
             );
           }
@@ -74,28 +67,4 @@ class RoutingService extends StatelessWidget {
       },
     );
   }
-
-  // Future<String> isAdmin(String uid) async {
-  //   await dbReference.child('users/$uid').once().then(
-  //         (value) => userData.snapshotToClass(uid, value.snapshot),
-  //       );
-  //   // globals.revision = userData.revision;
-  //   return userData.role;
-  // }
-
-  // Future<String> getSPDB(String uid) async {
-  //   SharedPreferencesService spService = SharedPreferencesService();
-  //   if (await spService.getFirstSeen()) {
-  //     if (spService.getSharedprefUseridx(0) == uid) {
-  //       if (userData.role == "admin") {
-  //         return "1";
-  //       } else {
-  //         return "2";
-  //       }
-  //     }
-  //   } else {
-  //     return "3";
-  //   }
-  //   return "4";
-  // }
 }

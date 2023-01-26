@@ -5,7 +5,7 @@ import '../../main.dart';
 
 class DatabaseService {
   ErrorHandler errHandler = ErrorHandler();
-  Future<Post> getDatabaseUser(String uid) async {
+  Future<UserData> getDatabaseUser(String uid) async {
     await dbReference.child('users/$uid').once().then(
           (value) => userData.snapshotToClass(uid, value.snapshot),
         );
@@ -64,7 +64,15 @@ class DatabaseService {
       errHandler.fromErrorCode(e, context);
     }
   }
-
+  // ADMINS ONLY REVISION CHANGE
+ Future<void> updateRevision(
+      String updatedRevision, String uid, BuildContext context) async {
+    try {
+      dbReference.child('users/$uid').update({'revision': updatedRevision});
+    } catch (e) {
+      errHandler.fromErrorCode(e, context);
+    }
+  }
   Future<void> addQuery(
       String subject, String query, BuildContext context) async {
     try {

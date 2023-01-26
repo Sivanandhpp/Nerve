@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nerve/main.dart';
 import 'package:nerve/screens/main/screen_profile.dart';
 import 'package:nerve/screens/widgets/popup_sem_select.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../core/globalvalues/sizedboxes.dart' as sb;
 import '../../core/globalvalues/theme_color.dart';
 
@@ -15,6 +16,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List<String> revision = [
+    '2015',
+    '2021',
+  ];
+
   SemSelect semsel = SemSelect();
   @override
   Widget build(BuildContext context) {
@@ -89,11 +95,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: (context) => const ScreenProfile(),
                           ),
                         );
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => const ScreenProfile()),
-                        // );
                       },
                     ),
                   ],
@@ -122,10 +123,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           bottom: -1,
                           child: SizedBox(
                             width: 250,
-                            // height: 100,
-                            // decoration: const BoxDecoration(
-                            //     shape: BoxShape.circle,
-                            //     color: ThemeColor.secondary),
                             child: Center(
                                 child: Image.asset(
                               'assets/images/study.png',
@@ -141,8 +138,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Syllabus",
@@ -151,28 +149,125 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontWeight: FontWeight.bold,
                                           color: ThemeColor.white),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "Batch ${userData.batch}",
-                                      style: GoogleFonts.ubuntu(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: ThemeColor.white),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "Revision ${userData.revision}",
-                                      style: GoogleFonts.ubuntu(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: ThemeColor.white),
-                                    ),
+                                    userData.role == 'admin'
+                                        ? Shimmer.fromColors(
+                                            direction: ShimmerDirection.ltr,
+                                            baseColor: ThemeColor.white,
+                                            highlightColor:
+                                                ThemeColor.lightBlue,
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 3),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: ThemeColor.primary,
+                                                      width: 2),
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(20))),
+                                              child: const Text(
+                                                "Admin",
+                                                style: TextStyle(
+                                                    color: ThemeColor.primary,
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          )
+                                        : Container()
                                   ],
                                 ),
+                                userData.role == 'admin'
+                                    ? Container(
+                                        width: 140,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: ThemeColor.secondary,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: DropdownButton(
+                                            underline: Container(
+                                              height: 0,
+                                              color: Colors.white,
+                                            ),
+                                            hint: Text(
+                                              userData.revision,
+                                              style: GoogleFonts.ubuntu(
+                                                  fontSize: 13,
+                                                  color: ThemeColor.white),
+                                            ),
+                                            style: const TextStyle(
+                                                color: ThemeColor.white),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(20)),
+                                            dropdownColor:
+                                                ThemeColor.scaffoldBgColor,
+                                            isExpanded: true,
+                                            icon: const Icon(
+                                              Icons.arrow_downward,
+                                              color: ThemeColor.white,
+                                            ),
+                                            items: revision
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  style: GoogleFonts.ubuntu(
+                                                      color: ThemeColor.black),
+                                                ),
+                                              );
+                                            }).toList(),
+                                            onChanged: (String? value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                userData.revision = value!;
+                                              });
+                                              userData.updateRevision(
+                                                  userData.revision, context);
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                "Batch ${userData.batch}",
+                                                style: GoogleFonts.ubuntu(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: ThemeColor.white),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            "Revision ${userData.revision}",
+                                            style: GoogleFonts.ubuntu(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                                color: ThemeColor.white),
+                                          ),
+                                        ],
+                                      ),
                                 Container(
                                   width: 140,
                                   height: 50,

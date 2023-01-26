@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:nerve/core/services/database_service.dart';
 import 'package:nerve/core/services/sharedpref_service.dart';
 
-class Post {
+class UserData {
   late String name,
       email,
       phoneNo,
@@ -14,12 +15,9 @@ class Post {
   SharedPreferencesService spService = SharedPreferencesService();
   DatabaseService dbService = DatabaseService();
 
-  uidToClass(uid) {
-    userid = uid;
-  }
-
-  profileToClass(profileurl) {
-    profile = profileurl;
+  updateRevision(String updatedRevision, BuildContext context) {
+    revision = updatedRevision;
+    dbService.updateRevision(updatedRevision, userid, context);
   }
 
   snapshotToClass(uid, snapshot) {
