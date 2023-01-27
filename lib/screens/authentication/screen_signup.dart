@@ -96,6 +96,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         validator: (value) {
                           if (_phoneNoController.text.isEmpty) {
                             return "This field can't be empty";
+                          } else if (_phoneNoController.text.length != 10) {
+                            return "Phone number must have 10 digits";
                           }
                         },
                         style: GoogleFonts.poppins(
@@ -128,6 +130,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         validator: (value) {
                           if (_emailController.text.isEmpty) {
                             return "This field can't be empty";
+                          } else if (_emailController.text.split('@').last !=
+                                  'nerve.com' &&
+                              _emailController.text.split('@').last !=
+                                  'gmail.com') {
+                            return "Enter a valid E-Mail ID";
                           }
                         },
                         style: GoogleFonts.poppins(
@@ -158,6 +165,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         validator: (value) {
                           if (_passwordController.text.isEmpty) {
                             return "This field can't be empty";
+                          } else if (_passwordController.text.length < 8) {
+                            return "Password should be more than 8 letters";
                           }
                         },
                         obscureText: true,
@@ -226,8 +235,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   IconButton(
                                     icon: const Icon(Icons.remove),
                                     onPressed: () => setState(() {
-                                      if (_batch !=
-                                          DateTime.now().year - 6) {
+                                      if (_batch != DateTime.now().year - 6) {
                                         _batch -= 1;
                                       }
                                     }),

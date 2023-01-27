@@ -161,7 +161,16 @@ class _ScreenUploadState extends State<ScreenUpload> {
                               // ignore: use_build_context_synchronously
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                      content: Text('No File Selected')));
+                                      behavior: SnackBarBehavior.floating,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0))),
+                                      backgroundColor: ThemeColor.primary,
+                                      content: Text(
+                                        'No File Selected',
+                                        style:
+                                            TextStyle(color: ThemeColor.white),
+                                      )));
                             }
                             setState(() {
                               selectedFileName = results!.files.single.name;
@@ -379,20 +388,60 @@ class _ScreenUploadState extends State<ScreenUpload> {
                 GestureDetector(
                   onTap: () {
                     if (selectedFilePath == "null") {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('No File Selected')));
-                    } else if (selectedFileName.length < 1) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Add a name to file")));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
+                          content: Text(
+                            'No File Selected',
+                            style: TextStyle(color: ThemeColor.white),
+                          )));
+                    } else if (selectedFileName.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
+                          content: Text(
+                            "Add a name to file",
+                            style: TextStyle(color: ThemeColor.white),
+                          )));
                     } else if (dropdownRevision == "Select revision") {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Select revision")));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
+                          content: Text(
+                            "Select revision",
+                            style: TextStyle(color: ThemeColor.white),
+                          )));
                     } else if (dropdownSemester == "Select semester") {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Select semester")));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
+                          content: Text(
+                            "Select semester",
+                            style: TextStyle(color: ThemeColor.white),
+                          )));
                     } else if (dropdownContent == "Select document Type") {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Select document Type")));
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
+                          content: Text(
+                            "Select document Type",
+                            style: TextStyle(color: ThemeColor.white),
+                          )));
                     } else {
                       setState(() {
                         isLoading = true;
@@ -408,7 +457,13 @@ class _ScreenUploadState extends State<ScreenUpload> {
                           .then(((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text('File uploaded successfully')));
+                              behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
+                                content: Text('File uploaded successfully',
+                            style: TextStyle(color: ThemeColor.white),)));
                         setState(() {
                           isLoading = false;
                           dropdownSemester = "Select semester";

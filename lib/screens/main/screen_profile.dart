@@ -171,8 +171,16 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     );
                     if (results == null) {
                       // ignore: use_build_context_synchronously
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('No Image Selected')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
+                          content: Text(
+                            'No Image Selected',
+                            style: TextStyle(color: ThemeColor.white),
+                          )));
                     } else {
                       setState(() {
                         isLoading = true;

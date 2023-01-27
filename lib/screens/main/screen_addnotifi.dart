@@ -142,7 +142,16 @@ class _AddNotificationState extends State<AddNotification> {
                               // ignore: use_build_context_synchronously
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                      content: Text('No File Selected')));
+                                      behavior: SnackBarBehavior.floating,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0))),
+                                      backgroundColor: ThemeColor.primary,
+                                      content: Text(
+                                        'No File Selected',
+                                        style:
+                                            TextStyle(color: ThemeColor.white),
+                                      )));
                             }
                             setState(() {
                               selectedFileName = results!.files.single.name;
@@ -245,24 +254,54 @@ class _AddNotificationState extends State<AddNotification> {
                 GestureDetector(
                   onTap: () {
                     DateTime now = DateTime.now();
-                    if (title == "Add title"  || title.length < 3) {
+                    if (title == "Add title" || title.length < 3) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Add a title before submitting")));
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
+                          content: Text(
+                            "Add a title before submitting",
+                            style: TextStyle(color: ThemeColor.white),
+                          )));
                     } else if (content == "Add content" || content.length < 3) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Add a content before submitting")));
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
+                          content: Text(
+                            "Add a content before submitting",
+                            style: TextStyle(color: ThemeColor.white),
+                          )));
                     } else if (selectedFilePath == "null") {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          backgroundColor: ThemeColor.primary,
                           content: Text(
-                              'No File Selected, Adding notification without image')));
+                            'No File Selected, Adding notification without image',
+                            style: TextStyle(color: ThemeColor.white),
+                          )));
                       dbService
                           .addNotification(
                               title, content, 'null', 'null', now, context)
                           .then((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content:
-                                    Text('Notification added successfully')));
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15.0))),
+                                backgroundColor: ThemeColor.primary,
+                                content: Text(
+                                  'Notification added successfully',
+                                  style: TextStyle(color: ThemeColor.white),
+                                )));
                         setState(() {
                           isLoading = false;
                           content = "Add content";
@@ -276,7 +315,7 @@ class _AddNotificationState extends State<AddNotification> {
                       setState(() {
                         isLoading = true;
                       });
-                     
+
                       String fileName =
                           "${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}$selectedFileName";
                       storage
@@ -290,8 +329,15 @@ class _AddNotificationState extends State<AddNotification> {
                               .then((value) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
+                                    behavior: SnackBarBehavior.floating,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15.0))),
+                                    backgroundColor: ThemeColor.primary,
                                     content: Text(
-                                        'Notification added successfully')));
+                                      'Notification added successfully',
+                                      style: TextStyle(color: ThemeColor.white),
+                                    )));
                             setState(() {
                               isLoading = false;
                               content = "Add content";

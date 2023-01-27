@@ -149,20 +149,42 @@ class _QueryScreenState extends State<QueryScreen> {
                         if (subject == "Subject" || subject.length < 3) {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content:
-                                      Text("Add a subject before submitting")));
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(15.0))),
+                                  backgroundColor: ThemeColor.primary,
+                                  content: Text(
+                                    "Add a subject before submitting",
+                                    style: TextStyle(color: ThemeColor.white),
+                                  )));
                         } else if (query == "Write your query" ||
                             query.length < 3) {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content:
-                                      Text("Write a query before submitting")));
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(15.0))),
+                                  backgroundColor: ThemeColor.primary,
+                                  content: Text(
+                                    "Write a query before submitting",
+                                    style: TextStyle(color: ThemeColor.white),
+                                  )));
                         } else {
                           dbService.addQuery(subject, query, context).then(
                               (value) => ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0))),
+                                      backgroundColor: ThemeColor.primary,
                                       content: Text(
-                                          'Query submitted sucessfully'))));
+                                        'Query submitted sucessfully',
+                                        style:
+                                            TextStyle(color: ThemeColor.white),
+                                      ))));
                         }
                       },
                       child: Container(

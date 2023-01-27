@@ -66,8 +66,12 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (value) {
                           if (_emailController.text.isEmpty) {
                             return "This field can't be empty";
+                          } else if (_emailController.text.split('@').last !=
+                                  'nerve.com' &&
+                              _emailController.text.split('@').last !=
+                                  'gmail.com') {
+                            return "Enter a valid E-Mail ID";
                           }
-                         
                         },
                         style: GoogleFonts.poppins(
                           color: ThemeColor.black,
@@ -98,6 +102,8 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (value) {
                           if (_passwordController.text.isEmpty) {
                             return "This field can't be empty";
+                          } else if (_passwordController.text.length < 8) {
+                            return "Password should be more than 8 letters";
                           }
                         },
                         obscureText: true,
@@ -110,7 +116,8 @@ class _LoginPageState extends State<LoginPage> {
                           if (_formKey.currentState!.validate()) {
                             authService.signInWithEmailAndPassword(
                                 _emailController.text,
-                                _passwordController.text,context);
+                                _passwordController.text,
+                                context);
                           }
                         },
                         cursorColor: ThemeColor.primary,
@@ -135,19 +142,35 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.only(top: 12),
                           child: GestureDetector(
                             onTap: () {
-                              // MessageDialog messageDialog = MessageDialog(
-                              //   dialogBackgroundColor: Colors.white,
-                              //   buttonOkColor: ThemeColor.primary,
-                              //   title: 'Forgot password?',
-                              //   titleColor: Colors.black,
-                              //   message: 'Contact: admin@nerve.com',
-                              //   messageColor: Colors.black,
-                              //   buttonOkText: 'Ok',
-                              //   dialogRadius: 30.0,
-                              //   buttonRadius: 15.0,
-                              // );
-                              // messageDialog.show(context,
-                              //     barrierColor: Colors.white);
+                              showDialog<String>(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (BuildContext context) => AlertDialog(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0))),
+                                  contentPadding: const EdgeInsets.all(20.0),
+                                  title: Text(
+                                    "Forgot password?",
+                                    style: GoogleFonts.ubuntu(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  content: const Text(
+                                      "Contact admin or respective faculty"),
+                                  actions: <Widget>[
+                                    Center(
+                                      child: TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: Text('Got it!',
+                                            style: GoogleFonts.ubuntu(
+                                                fontWeight: FontWeight.bold,
+                                                color: ThemeColor.ytRed)),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
                             },
                             child: Text(
                               "Forgot password?",
@@ -168,7 +191,8 @@ class _LoginPageState extends State<LoginPage> {
                           if (_formKey.currentState!.validate()) {
                             authService.signInWithEmailAndPassword(
                                 _emailController.text,
-                                _passwordController.text,context);
+                                _passwordController.text,
+                                context);
                           }
                         },
                       ),

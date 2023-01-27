@@ -221,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               return DropdownMenuItem<String>(
                                                 value: value,
                                                 child: Text(
-                                                  "Revision: ${value}",
+                                                  "Revision: $value",
                                                   style: GoogleFonts.ubuntu(
                                                       color: ThemeColor.black),
                                                 ),

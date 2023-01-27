@@ -348,55 +348,72 @@ class _ViewStudentsState extends State<ViewStudents> {
                           sb.height10,
                           GestureDetector(
                             onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: ((context) => AlertDialog(
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20.0))),
-                                      contentPadding:
-                                          const EdgeInsets.all(20.0),
-                                      title: Center(
-                                        child: Text(
-                                          "Verify or Disable",
-                                          style: GoogleFonts.ubuntu(
-                                              color: ThemeColor.black,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      content: SizedBox(
-                                        height: 130,
-                                        width: double.infinity,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              "Selected user: ${snapshot.child('name').value.toString()}\n",
-                                              style: GoogleFonts.ubuntu(
-                                                  color: ThemeColor.black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                            alertBoxContents(snapshot),
-                                          ],
-                                        ),
-                                      ),
-                                      actions: <Widget>[
-                                        Center(
-                                          child: TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                context, 'Cancel'),
-                                            child: Text('Cancel',
-                                                style: GoogleFonts.ubuntu(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: ThemeColor.ytRed)),
+                              if (snapshot.key == userData.userid) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        behavior: SnackBarBehavior.floating,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15.0))),
+                                        backgroundColor: ThemeColor.primary,
+                                        content: Text(
+                                          "You can't edit your own info",
+                                          style: TextStyle(
+                                              color: ThemeColor.white),
+                                        )));
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: ((context) => AlertDialog(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.0))),
+                                        contentPadding:
+                                            const EdgeInsets.all(20.0),
+                                        title: Center(
+                                          child: Text(
+                                            "Verify or Disable",
+                                            style: GoogleFonts.ubuntu(
+                                                color: ThemeColor.black,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                      ],
-                                    )),
-                              );
+                                        content: SizedBox(
+                                          height: 130,
+                                          width: double.infinity,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text(
+                                                "Selected user: ${snapshot.child('name').value.toString()}\n",
+                                                style: GoogleFonts.ubuntu(
+                                                    color: ThemeColor.black,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              alertBoxContents(snapshot),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          Center(
+                                            child: TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  context, 'Cancel'),
+                                              child: Text('Cancel',
+                                                  style: GoogleFonts.ubuntu(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: ThemeColor.ytRed)),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                );
+                              }
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
