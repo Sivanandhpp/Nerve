@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -147,9 +148,30 @@ class _ScreenNotificationState extends State<ScreenNotification> {
         child: SizedBox(
           height: 80.0,
           width: 80.0,
-          child: Image(
-            image: NetworkImage(snapshot.child('url').value.toString()),
-            fit: BoxFit.cover,
+          child: CachedNetworkImage(
+            imageUrl: snapshot.child('url').value,
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            placeholder: (context, url) => const SizedBox(
+                height: 10, width: 10, child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: const SizedBox(
+                height: 80,
+                width: 80,
+                child: Center(
+                    child: Icon(
+                  FontAwesomeIcons.solidImage,
+                  size: 40,
+                )),
+              ),
+            ),
           ),
         ),
       ),
