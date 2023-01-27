@@ -10,6 +10,7 @@ import 'package:nerve/screens/widgets/shimmer_home.dart';
 import 'package:provider/provider.dart';
 import '../../main.dart';
 import '../../screens/dashboards/admin_dashboard.dart';
+import '../../screens/main/screen_disabledacc.dart';
 import '../../screens/widgets/splash_loading.dart';
 import '../../screens/authentication/screen_login.dart';
 
@@ -29,14 +30,19 @@ class RoutingService extends StatelessWidget {
             userData.userid = user.uid;
             return FutureBuilder<UserData>(
               future: dbService.getDatabaseUser(user.uid),
-              builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
+              builder:
+                  (BuildContext context, AsyncSnapshot<UserData> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.data!.role == "admin") {
-                    //Admin Dashboard
-                    return AdminDashBoard();
+                  if (snapshot.data!.status == "disabled") {
+                    return const DisabledAccount();
                   } else {
-                    //User Dashboard
-                    return UserDashBoard();
+                    if (snapshot.data!.role == "admin") {
+                      //Admin Dashboard
+                      return AdminDashBoard();
+                    } else {
+                      //User Dashboard
+                      return UserDashBoard();
+                    }
                   }
                 }
                 return const HomeShimmer();

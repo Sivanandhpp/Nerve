@@ -256,7 +256,7 @@ class SemSelect {
               onPressed: () => Navigator.pop(context, 'Cancel'),
               child: Text('Cancel',
                   style: GoogleFonts.ubuntu(
-                      fontWeight: FontWeight.bold, color: ThemeColor.red)),
+                      fontWeight: FontWeight.bold, color: ThemeColor.ytRed)),
             ),
           ),
         ],
