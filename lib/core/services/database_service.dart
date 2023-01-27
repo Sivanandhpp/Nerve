@@ -24,8 +24,8 @@ class DatabaseService {
       'batch': batch,
       'revision': revision,
       'role': role,
-      'profile': 'null',
-      'status': 'active'
+      'profile': profile,
+      'status': status
     });
   }
 

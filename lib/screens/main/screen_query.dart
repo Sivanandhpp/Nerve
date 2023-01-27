@@ -130,8 +130,21 @@ class _QueryScreenState extends State<QueryScreen> {
                 ),
               ),
               sb.height20,
-              userData.status == 'diabled'
-                  ? GestureDetector(
+              userData.status == 'disabled'
+                  ? Container(
+                      width: double.infinity,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: ThemeColor.ytRed,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Center(
+                        child: Text(
+                          "Account disabled",
+                          style: GoogleFonts.ubuntu(color: ThemeColor.white),
+                        ),
+                      ),
+                    )
+                  : GestureDetector(
                       onTap: () {
                         if (subject == "Subject" || subject.length < 3) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -163,19 +176,6 @@ class _QueryScreenState extends State<QueryScreen> {
                             "Submit Query",
                             style: GoogleFonts.ubuntu(color: ThemeColor.white),
                           ),
-                        ),
-                      ),
-                    )
-                  : Container(
-                      width: double.infinity,
-                      height: 60,
-                      decoration: BoxDecoration(
-                          color: ThemeColor.ytRed,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Center(
-                        child: Text(
-                          "Account disabled",
-                          style: GoogleFonts.ubuntu(color: ThemeColor.white),
                         ),
                       ),
                     ),
