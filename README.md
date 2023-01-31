@@ -17,4 +17,50 @@ What things you need to install the software and how to install them:
 
 1. Clone the repository:
 
-```git clone https://github.com/sivanandhpp/nerve.git```
+```
+https://github.com/Sivanandhpp/Nerve.git
+```
+
+2. Navigate to the project directory:
+
+```
+cd Nerve
+```
+3.1 Open in VS Code:
+
+```
+code .
+```
+3.2 Run the application:
+
+```
+flutter run
+```
+
+
+## Built With
+
+- [Flutter](https://flutter.dev/) - A mobile development framework
+- [Firebase](https://firebase.google.com/) - A Backend-as-a-Service platform
+
+## Contributing
+
+Open a pull request with detailed description.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning.
+
+## Authors
+
+- [Sivanandh](https://github.com/sivanandhpp)
+- [Amalraj](https://github.com/amalrajkp18)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/sivanandhpp/nerve/blob/master/LICENSE.md) file for details.
+
+## Acknowledgments
+
+- [Flutter](https://flutter.dev/)
+- [Firebase](https://firebase.google.com/)
