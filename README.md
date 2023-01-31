@@ -56,10 +56,6 @@ We use [SemVer](http://semver.org/) for versioning.
 - [Sivanandh](https://github.com/sivanandhpp)
 - [Amalraj](https://github.com/amalrajkp18)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/sivanandhpp/nerve/blob/master/LICENSE.md) file for details.
-
 ## Acknowledgments
 
 - [Flutter](https://flutter.dev/)
